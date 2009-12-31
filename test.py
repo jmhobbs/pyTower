@@ -18,9 +18,6 @@ CENTER = ( GAME_WIDTH - WINDOW_WIDTH ) / 2
 MINI_WIDTH = GAME_WIDTH / FLOOR_HEIGHT
 MINI_HEIGHT = GAME_HEIGHT / FLOOR_HEIGHT
 
-print "Game Height:", GAME_HEIGHT
-print "Game Width:", GAME_WIDTH
-
 # set up the colors
 BLACK = ( 0, 0, 0 )
 WHITE = ( 255, 255, 255 )
@@ -45,12 +42,12 @@ drawrect = ( fullSurface.get_rect().left, fullSurface.get_rect().bottom - ( FLOO
 pygame.draw.rect( fullSurface, DARK_BROWN, drawrect )
 
 miniSurface = pygame.Surface( ( MINI_WIDTH, MINI_HEIGHT ) )
+miniSurface.set_alpha( 200 )
 miniSurface.fill( SKY_BLUE )
 drawrect = ( miniSurface.get_rect().left, miniSurface.get_rect().bottom - ( 10 ), miniSurface.get_rect().width, ( 5 ) )
 pygame.draw.rect( miniSurface, LIGHT_BROWN, drawrect )
 drawrect = ( miniSurface.get_rect().left, miniSurface.get_rect().bottom - ( 5 ), miniSurface.get_rect().width, ( 5 ) )
 pygame.draw.rect( miniSurface, DARK_BROWN, drawrect )
-
 
 windowSurface.blit( fullSurface, ( 0, 0 ), ( 0 + h_offset, 0 + v_offset, WINDOW_WIDTH, WINDOW_HEIGHT ) )
 
