@@ -7,7 +7,7 @@ from multiprocessing import Process, Queue
 
 from pytower import constants
 from pytower import colors
-import pytower.qtui as pytower_ui
+import pytower.qtui as pytower_ui # Later we can build a GTK+ or other UI and use it too
 
 def update_loading_screen ( text, last_rectangle=None ):
 	if None != last_rectangle:
