@@ -7,15 +7,20 @@ from pygame.locals import *
 pygame.init()
 
 # Dimensions
+FLOOR_HEIGHT = 40
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
-GAME_WIDTH = 2975 # This is adjusted so the mini-window works.
-GAME_HEIGHT = 5250 # 150 Floors @ 35px each
+GAME_HEIGHT = 110 * FLOOR_HEIGHT
+GAME_WIDTH = 75 * FLOOR_HEIGHT
+GAME_RATIO = GAME_HEIGHT / GAME_WIDTH
 BOTTOM = GAME_HEIGHT - WINDOW_HEIGHT
 CENTER = ( GAME_WIDTH - WINDOW_WIDTH ) / 2
-MINI_WIDTH = 85
-MINI_HEIGHT = 150
-MINI_RATIO = 35
+MINI_WIDTH = GAME_WIDTH / FLOOR_HEIGHT
+MINI_HEIGHT = GAME_HEIGHT / FLOOR_HEIGHT
+
+print "Game Height:", GAME_HEIGHT
+print "Game Width:", GAME_WIDTH
+
 # set up the colors
 BLACK = ( 0, 0, 0 )
 WHITE = ( 255, 255, 255 )
@@ -29,21 +34,21 @@ windowSurface = pygame.display.set_mode( ( WINDOW_WIDTH, WINDOW_HEIGHT ), 0, 32 
 pygame.display.set_caption( 'pyTower Testing Ground' )
 
 h_offset = CENTER
-v_offset = BOTTOM - 175 # We don't want absolute bottom, this is 5 floors up.
+v_offset = BOTTOM - ( FLOOR_HEIGHT * 5 ) # We don't want absolute bottom, this is 5 floors up.
 
 fullSurface = pygame.Surface( ( GAME_WIDTH, GAME_HEIGHT ) )
 fullSurface.fill( SKY_BLUE )
 
-drawrect = ( fullSurface.get_rect().left, fullSurface.get_rect().bottom - 350, fullSurface.get_rect().width, 175 )
+drawrect = ( fullSurface.get_rect().left, fullSurface.get_rect().bottom - ( FLOOR_HEIGHT * 10 ), fullSurface.get_rect().width, ( FLOOR_HEIGHT * 5 ) )
 pygame.draw.rect( fullSurface, LIGHT_BROWN, drawrect )
-drawrect = ( fullSurface.get_rect().left, fullSurface.get_rect().bottom - 175, fullSurface.get_rect().width, 175 )
+drawrect = ( fullSurface.get_rect().left, fullSurface.get_rect().bottom - ( FLOOR_HEIGHT * 5 ), fullSurface.get_rect().width, ( FLOOR_HEIGHT * 5 ) )
 pygame.draw.rect( fullSurface, DARK_BROWN, drawrect )
 
 miniSurface = pygame.Surface( ( MINI_WIDTH, MINI_HEIGHT ) )
 miniSurface.fill( SKY_BLUE )
-drawrect = ( miniSurface.get_rect().left, miniSurface.get_rect().bottom - ( 350 / MINI_RATIO ), miniSurface.get_rect().width, ( 175 / MINI_RATIO ) )
+drawrect = ( miniSurface.get_rect().left, miniSurface.get_rect().bottom - ( 10 ), miniSurface.get_rect().width, ( 5 ) )
 pygame.draw.rect( miniSurface, LIGHT_BROWN, drawrect )
-drawrect = ( miniSurface.get_rect().left, miniSurface.get_rect().bottom - ( 175 / MINI_RATIO ), miniSurface.get_rect().width, ( 175 / MINI_RATIO ) )
+drawrect = ( miniSurface.get_rect().left, miniSurface.get_rect().bottom - ( 5 ), miniSurface.get_rect().width, ( 5 ) )
 pygame.draw.rect( miniSurface, DARK_BROWN, drawrect )
 
 
@@ -57,20 +62,26 @@ while True:
 			pygame.quit()
 			sys.exit()
 		elif event.type == KEYUP:
-			print "Keypress:", event.key
-			print "V:", v_offset
-			print "H:", h_offset
+			#print "Keypress:", event.key
 			if event.key == 113: # q
 				pygame.quit()
 				sys.exit()
-			elif event.key == 274 and v_offset + WINDOW_HEIGHT < GAME_HEIGHT: # Down
-					v_offset = v_offset + 35
-			elif event.key == 273 and v_offset > 0: # Up
-				v_offset = v_offset - 35
-			elif event.key == 276 and h_offset + WINDOW_WIDTH < GAME_WIDTH: # Right
-				h_offset = h_offset - 35
-			elif event.key == 275 and h_offset > 0: # Left
-				h_offset = h_offset + 35
+			elif event.key == 274: # Down
+					v_offset = v_offset + FLOOR_HEIGHT
+					if ( v_offset + WINDOW_HEIGHT ) > GAME_HEIGHT:
+						v_offset = GAME_HEIGHT - WINDOW_HEIGHT
+			elif event.key == 273: # Up
+				v_offset = v_offset - FLOOR_HEIGHT
+				if v_offset < 0:
+					v_offset = 0
+			elif event.key == 276 and h_offset: # Right
+				h_offset = h_offset - FLOOR_HEIGHT
+				if h_offset < 0:
+					h_offset = 0
+			elif event.key == 275: # Left
+				h_offset = h_offset + FLOOR_HEIGHT
+				if ( h_offset + WINDOW_WIDTH ) > GAME_WIDTH:
+					h_offset = GAME_WIDTH - WINDOW_WIDTH
 			elif event.key == 278: # Home
 				h_offset = CENTER
 				v_offset = BOTTOM
@@ -81,7 +92,7 @@ while True:
 
 	windowSurface.blit( miniSurface, ( 10, 10 ), ( 0, 0, MINI_WIDTH, MINI_HEIGHT ) )
 
-	drawrect = ( 10 + ( h_offset / MINI_RATIO ), 10 + ( v_offset / MINI_RATIO ), ( WINDOW_WIDTH / MINI_RATIO ), ( WINDOW_HEIGHT / MINI_RATIO ) )
+	drawrect = ( 10 + ( h_offset / FLOOR_HEIGHT ), 10 + ( v_offset / FLOOR_HEIGHT ), ( WINDOW_WIDTH / FLOOR_HEIGHT ), ( WINDOW_HEIGHT / FLOOR_HEIGHT ) )
 	pygame.draw.rect( windowSurface, BLACK, drawrect )
 
 	pygame.display.update()
