@@ -12,6 +12,21 @@ pygame.init()
 windowSurface = pygame.display.set_mode( ( constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT ), 0, 32 )
 pygame.display.set_caption( 'pyTower - v' + constants.VERSION  )
 
+# Show the loading image. TODO: Actually load something.
+loading = pygame.image.load( 'resources/loading.bmp' ).convert()
+windowSurface.blit( loading, ( 0, 0 ) )
+
+# Set up font for loading...
+basicFont = pygame.font.SysFont(None, 48)
+
+text = basicFont.render( 'Building surfaces...' , True, colors.BLACK )
+textRect = text.get_rect()
+textRect.centerx = windowSurface.get_rect().centerx
+textRect.centery = windowSurface.get_rect().centery
+windowSurface.blit( text, textRect )
+pygame.display.update()
+pygame.time.delay( 1500 )
+
 # Viewport offsets
 h_offset = constants.CENTER
 v_offset = constants.BOTTOM - ( constants.FLOOR_HEIGHT * 5 )
@@ -26,6 +41,15 @@ pygame.draw.rect( fullSurface, colors.LIGHT_BROWN, drawrect )
 drawrect = ( fullSurface.get_rect().left, fullSurface.get_rect().bottom - ( constants.FLOOR_HEIGHT * 5 ), fullSurface.get_rect().width, ( constants.FLOOR_HEIGHT * 5 ) )
 pygame.draw.rect( fullSurface, colors.DARK_BROWN, drawrect )
 
+windowSurface.blit( loading, textRect, textRect )
+text = basicFont.render( 'Cloning mini model...' , True, colors.BLACK )
+textRect = text.get_rect()
+textRect.centerx = windowSurface.get_rect().centerx
+textRect.centery = windowSurface.get_rect().centery
+windowSurface.blit( text, textRect )
+pygame.display.update()
+pygame.time.delay( 1500 )
+
 # This is a representative surface used as a "map"
 miniSurface = pygame.Surface( ( constants.MINI_WIDTH, constants.MINI_HEIGHT ) )
 miniSurface.set_alpha( 200 )
@@ -33,8 +57,22 @@ miniSurface.fill( colors.SKY_BLUE )
 drawrect = ( miniSurface.get_rect().left, miniSurface.get_rect().bottom - ( 10 ), miniSurface.get_rect().width, ( 10 ) )
 pygame.draw.rect( miniSurface, colors.LIGHT_BROWN, drawrect )
 
-windowSurface.blit( fullSurface, ( 0, 0 ), ( 0 + h_offset, 0 + v_offset, constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT ) )
+windowSurface.blit( loading, textRect, textRect )
+text = basicFont.render( 'Making you wait...' , True, colors.BLACK )
+textRect = text.get_rect()
+textRect.centerx = windowSurface.get_rect().centerx
+textRect.centery = windowSurface.get_rect().centery
+windowSurface.blit( text, textRect )
+pygame.display.update()
+pygame.time.delay( 2000 )
 
+# IMPORTANT: Clean up your loading stuff!
+del loading
+del text
+del textRect
+
+# Now blit the starting, blank surface on
+windowSurface.blit( fullSurface, ( 0, 0 ), ( 0 + h_offset, 0 + v_offset, constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT ) )
 pygame.display.update()
 
 while True:
