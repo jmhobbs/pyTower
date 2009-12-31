@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pytower.qtui as pytower_ui
+import pytower.QtUi as pytower_ui
 from multiprocessing import Process, Queue
 
 sq = Queue()

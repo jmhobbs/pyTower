@@ -7,7 +7,7 @@ from multiprocessing import Process, Queue
 
 from pytower import constants
 from pytower import colors
-import pytower.qtui as pytower_ui # Later we can build a GTK+ or other UI and use it too
+import pytower.QtUi as pytower_ui # Later we can build a GTK+ or other UI and use it too
 
 def update_loading_screen ( text, last_rectangle=None ):
 	if None != last_rectangle:
@@ -72,17 +72,17 @@ ui_recieve_q = Queue()
 ui = Process( target=pytower_ui.show_main_menu, args=( ui_send_q, ui_recieve_q ) )
 ui.start()
 
-pygame.time.delay( 500 )
-ui_send_q.put_nowait( "Test" )
-
 while True:
 	pygame.display.update()
 	try:
-		instruction = ui_recieve_q.get_nowait()
-		ui.terminate() # TODO: Be nicer. Try a queue event & join or something.
-		ui.join()
-		pygame.quit()
-		sys.exit()
+		msg = ui_recieve_q.get_nowait()
+		print msg
+		if "QUIT" == msg['instruction']:
+			ui.join()
+			pygame.quit()
+			exit()
+		elif "NEWGAME" == msg['instruction']:
+			break
 	except:
 		pygame.time.delay( constants.IPQUEUE_SLEEP )
 
