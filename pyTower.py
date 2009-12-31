@@ -3,6 +3,8 @@
 import pygame, sys
 from pygame.locals import *
 
+from multiprocessing import Process
+
 from pytower import constants
 from pytower import colors
 
@@ -70,6 +72,13 @@ pygame.time.delay( 2000 )
 del loading
 del text
 del textRect
+
+def split ():
+	import pytower.qtui
+	pytower.qtui.showapp()
+
+p = Process(target=split)
+p.start()
 
 # Now blit the starting, blank surface on
 windowSurface.blit( fullSurface, ( 0, 0 ), ( 0 + h_offset, 0 + v_offset, constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT ) )
