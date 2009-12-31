@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from PyQt4 import QtCore, QtGui
-import constants
+import Constants
+import Messages
 
 if __name__ == "__main__":
 	print "No Direct Invocation"
@@ -21,7 +22,7 @@ class MenuDialog ( QtGui.QWidget ):
 
 		self.timer = QtCore.QTimer()
 		QtCore.QObject.connect( self.timer, QtCore.SIGNAL( "timeout()" ), self.check_messages )
-		self.timer.start( constants.IPQUEUE_SLEEP )
+		self.timer.start( Constants.IPQUEUE_SLEEP )
 
 	def closeEvent ( self, event ):
 		event.ignore();
@@ -55,11 +56,11 @@ class main_menu ( MenuDialog ):
 		self.setLayout( vbox )
 
 	def do_new_game ( self ):
-		self.send_message( { 'instruction': 'NEWGAME' } )
+		self.send_message( Messages.Message( Messages.NEWGAME ) )
 		self.hide()
 		self.emit( QtCore.SIGNAL( "quit()" ) )
 
 	def do_quit ( self ):
-		self.send_message( { 'instruction': 'QUIT' } )
+		self.send_message( Messages.Message( Messages.QUIT ) )
 		self.hide()
 		self.emit( QtCore.SIGNAL( "quit()" ) )
