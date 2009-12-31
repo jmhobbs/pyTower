@@ -61,6 +61,13 @@ while True:
 		if event.type == QUIT:
 			pygame.quit()
 			sys.exit()
+		elif event.type == MOUSEBUTTONUP:
+			if event.button == 1:
+				# Check if it is in the mini box
+				if event.pos[0] > 10 and event.pos[0] < ( 10 + MINI_WIDTH ) and event.pos[1] > 10 and event.pos[1] < ( 10 + MINI_HEIGHT ):
+					h_offset = ( event.pos[0] * FLOOR_HEIGHT ) - WINDOW_WIDTH
+					v_offset = ( event.pos[1] * FLOOR_HEIGHT ) - WINDOW_HEIGHT
+
 		elif event.type == KEYUP:
 			#print "Keypress:", event.key
 			if event.key == 113: # q
@@ -68,23 +75,27 @@ while True:
 				sys.exit()
 			elif event.key == 274: # Down
 					v_offset = v_offset + FLOOR_HEIGHT
-					if ( v_offset + WINDOW_HEIGHT ) > GAME_HEIGHT:
-						v_offset = GAME_HEIGHT - WINDOW_HEIGHT
 			elif event.key == 273: # Up
 				v_offset = v_offset - FLOOR_HEIGHT
-				if v_offset < 0:
-					v_offset = 0
 			elif event.key == 276 and h_offset: # Right
 				h_offset = h_offset - FLOOR_HEIGHT
-				if h_offset < 0:
-					h_offset = 0
 			elif event.key == 275: # Left
 				h_offset = h_offset + FLOOR_HEIGHT
-				if ( h_offset + WINDOW_WIDTH ) > GAME_WIDTH:
-					h_offset = GAME_WIDTH - WINDOW_WIDTH
 			elif event.key == 278: # Home
 				h_offset = CENTER
 				v_offset = BOTTOM
+
+	# Over-adjust corrections...
+	if ( h_offset + WINDOW_WIDTH ) > GAME_WIDTH:
+		h_offset = GAME_WIDTH - WINDOW_WIDTH
+	elif h_offset < 0:
+		h_offset = 0
+
+	if ( v_offset + WINDOW_HEIGHT ) > GAME_HEIGHT:
+		v_offset = GAME_HEIGHT - WINDOW_HEIGHT
+	elif v_offset < 0:
+		v_offset = 0
+
 	windowSurface.blit( fullSurface, ( 0, 0 ), ( 0 + h_offset, 0 + v_offset, WINDOW_WIDTH, WINDOW_HEIGHT ) )
 
 	drawrect = ( 9, 9, MINI_WIDTH + 2, MINI_HEIGHT + 2 )
