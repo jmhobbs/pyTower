@@ -3,10 +3,22 @@
 import pygame, sys
 from pygame.locals import *
 
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 
 from pytower import constants
 from pytower import colors
+import pytower.qtui as pytower_ui
+
+def update_loading_screen ( text, last_rectangle=None ):
+	if None != last_rectangle:
+		windowSurface.blit( loading, last_rectangle, last_rectangle )
+	text = loadingFont.render( text , True, colors.BLACK )
+	textRect = text.get_rect()
+	textRect.centerx = windowSurface.get_rect().centerx
+	textRect.centery = windowSurface.get_rect().centery
+	windowSurface.blit( text, textRect )
+	pygame.display.update()
+	return textRect
 
 pygame.init()
 
@@ -14,20 +26,15 @@ pygame.init()
 windowSurface = pygame.display.set_mode( ( constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT ), 0, 32 )
 pygame.display.set_caption( 'pyTower - v' + constants.VERSION  )
 
+# Set up font for loading...
+loadingFont = pygame.font.SysFont( None, 48 )
+
 # Show the loading image. TODO: Actually load something.
 loading = pygame.image.load( 'resources/loading.bmp' ).convert()
 windowSurface.blit( loading, ( 0, 0 ) )
 
-# Set up font for loading...
-basicFont = pygame.font.SysFont(None, 48)
-
-text = basicFont.render( 'Building surfaces...' , True, colors.BLACK )
-textRect = text.get_rect()
-textRect.centerx = windowSurface.get_rect().centerx
-textRect.centery = windowSurface.get_rect().centery
-windowSurface.blit( text, textRect )
-pygame.display.update()
-pygame.time.delay( 1500 )
+last_loading_rectangle = update_loading_screen( 'Building surfaces...' )
+pygame.time.delay( 500 )
 
 # Viewport offsets
 h_offset = constants.CENTER
@@ -43,14 +50,8 @@ pygame.draw.rect( fullSurface, colors.LIGHT_BROWN, drawrect )
 drawrect = ( fullSurface.get_rect().left, fullSurface.get_rect().bottom - ( constants.FLOOR_HEIGHT * 5 ), fullSurface.get_rect().width, ( constants.FLOOR_HEIGHT * 5 ) )
 pygame.draw.rect( fullSurface, colors.DARK_BROWN, drawrect )
 
-windowSurface.blit( loading, textRect, textRect )
-text = basicFont.render( 'Cloning mini model...' , True, colors.BLACK )
-textRect = text.get_rect()
-textRect.centerx = windowSurface.get_rect().centerx
-textRect.centery = windowSurface.get_rect().centery
-windowSurface.blit( text, textRect )
-pygame.display.update()
-pygame.time.delay( 1500 )
+last_loading_rectangle = update_loading_screen( 'Cloning mini model...' , last_loading_rectangle )
+pygame.time.delay( 500 )
 
 # This is a representative surface used as a "map"
 miniSurface = pygame.Surface( ( constants.MINI_WIDTH, constants.MINI_HEIGHT ) )
@@ -59,26 +60,31 @@ miniSurface.fill( colors.SKY_BLUE )
 drawrect = ( miniSurface.get_rect().left, miniSurface.get_rect().bottom - ( 10 ), miniSurface.get_rect().width, ( 10 ) )
 pygame.draw.rect( miniSurface, colors.LIGHT_BROWN, drawrect )
 
-windowSurface.blit( loading, textRect, textRect )
-text = basicFont.render( 'Making you wait...' , True, colors.BLACK )
-textRect = text.get_rect()
-textRect.centerx = windowSurface.get_rect().centerx
-textRect.centery = windowSurface.get_rect().centery
-windowSurface.blit( text, textRect )
+last_loading_rectangle = update_loading_screen( 'Making you wait...' , last_loading_rectangle )
+pygame.time.delay( 500 )
+
+last_loading_rectangle = update_loading_screen( 'Ready!' , last_loading_rectangle )
 pygame.display.update()
-pygame.time.delay( 2000 )
+del loading # Cleanup
 
-# IMPORTANT: Clean up your loading stuff!
-del loading
-del text
-del textRect
+ui_send_q = Queue()
+ui_recieve_q = Queue()
+ui = Process( target=pytower_ui.show_main_menu, args=( ui_send_q, ui_recieve_q ) )
+ui.start()
 
-def split ():
-	import pytower.qtui
-	pytower.qtui.showapp()
+pygame.time.delay( 500 )
+ui_send_q.put_nowait( "Test" )
 
-p = Process(target=split)
-p.start()
+while True:
+	pygame.display.update()
+	try:
+		instruction = ui_recieve_q.get_nowait()
+		ui.terminate() # TODO: Be nicer. Try a queue event & join or something.
+		ui.join()
+		pygame.quit()
+		sys.exit()
+	except:
+		pygame.time.delay( constants.IPQUEUE_SLEEP )
 
 # Now blit the starting, blank surface on
 windowSurface.blit( fullSurface, ( 0, 0 ), ( 0 + h_offset, 0 + v_offset, constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT ) )
@@ -99,6 +105,7 @@ while True:
 		elif event.type == KEYUP:
 			#print "Keypress:", event.key
 			if event.key == 113: # q
+				ui.terminate() # TODO: Be nicer. Try a queue event & join or something.
 				pygame.quit()
 				sys.exit()
 			elif event.key == 274: # Down
