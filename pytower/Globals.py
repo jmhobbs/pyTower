@@ -17,3 +17,7 @@ v_offset = 0
 
 q_tx = None
 q_rx = None
+
+# Resources
+res_floor = None
+res_dirt = None

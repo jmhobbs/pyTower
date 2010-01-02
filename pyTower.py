@@ -23,11 +23,14 @@ Render.init()
 
 Render.start_loading()
 Render.set_loading( 'Loading...' )
-# TODO: Load something...
+
+Render.load_resources()
+
 Globals.q_tx = Queue()
 Globals.q_rx = Queue()
 ui = Process( target=GUI.show_main_menu, args=( Globals.q_tx, Globals.q_rx ) )
 ui.start()
+
 Render.set_loading( 'Ready!' )
 
 while True:

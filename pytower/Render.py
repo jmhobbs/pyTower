@@ -17,6 +17,14 @@ def full_update ():
 def dirty_update ():
 	pygame.display.update( Globals.dr_window )
 
+def load_resources ():
+	Globals.res_floor = pygame.image.load( 'resources/floor.bmp' ).convert()
+	Globals.res_dirt = pygame.image.load( 'resources/dirt.bmp' ).convert()
+
+def draw_floor ( h_offset, floors ):
+	Globals.s_full.blit( Globals.res_floor, ( h_offset, Constants.GAME_HEIGHT - ( Constants.FLOOR_HEIGHT * floors ) ) )
+	move()
+
 def start_loading ():
 	Globals.s_loading = pygame.image.load( 'resources/loading.bmp' ).convert()
 	Globals.s_window.blit( Globals.s_loading, ( 0, 0 ) )
@@ -47,10 +55,13 @@ def initialize_surfaces ():
 	Globals.s_full = pygame.Surface( ( Constants.GAME_WIDTH, Constants.GAME_HEIGHT ) )
 	# TODO: Replace with a real startup routine that draws nice dirt & sky :-/
 	Globals.s_full.fill( Colors.SKY_BLUE )
-	drawrect = ( Globals.s_full.get_rect().left, Globals.s_full.get_rect().bottom - ( Constants.FLOOR_HEIGHT * 10 ), Globals.s_full.get_rect().width, ( Constants.FLOOR_HEIGHT * 5 ) )
-	pygame.draw.rect( Globals.s_full, Colors.LIGHT_BROWN, drawrect )
-	drawrect = ( Globals.s_full.get_rect().left, Globals.s_full.get_rect().bottom - ( Constants.FLOOR_HEIGHT * 5 ), Globals.s_full.get_rect().width, ( Constants.FLOOR_HEIGHT * 5 ) )
-	pygame.draw.rect( Globals.s_full, Colors.DARK_BROWN, drawrect )
+	for y in range( 1, 10 ):
+		for x in range( 0, Constants.GAME_WIDTH, Constants.FLOOR_HEIGHT ):
+			Globals.s_full.blit( Globals.res_dirt, ( x, Globals.s_full.get_rect().bottom - ( Constants.FLOOR_HEIGHT * y ) ) )
+	#drawrect = ( Globals.s_full.get_rect().left, Globals.s_full.get_rect().bottom - ( Constants.FLOOR_HEIGHT * 10 ), Globals.s_full.get_rect().width, ( Constants.FLOOR_HEIGHT * 5 ) )
+	#pygame.draw.rect( Globals.s_full, Colors.LIGHT_BROWN, drawrect )
+	#drawrect = ( Globals.s_full.get_rect().left, Globals.s_full.get_rect().bottom - ( Constants.FLOOR_HEIGHT * 5 ), Globals.s_full.get_rect().width, ( Constants.FLOOR_HEIGHT * 5 ) )
+	#pygame.draw.rect( Globals.s_full, Colors.DARK_BROWN, drawrect )
 	set_loading( 'Drawing map...' )
 	pygame.time.delay( 250 )
 	# This is a representative surface used as a "map"
