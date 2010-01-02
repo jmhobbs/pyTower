@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore, QtGui, Qt
 import Constants
 import Messages
 
@@ -48,10 +48,13 @@ class main_menu ( MenuDialog ):
 		QtCore.QObject.connect( new_game, QtCore.SIGNAL( "clicked()" ), self.do_new_game )
 		quit = QtGui.QPushButton( "Quit" )
 		QtCore.QObject.connect( quit, QtCore.SIGNAL( "clicked()" ), self.do_quit )
+		about = QtGui.QPushButton( "About" )
+		QtCore.QObject.connect( about, QtCore.SIGNAL( "clicked()" ), self.do_about )
 
 		vbox = QtGui.QVBoxLayout()
 		vbox.addWidget( new_game, 1 )
 		vbox.addWidget( quit, 1 )
+		vbox.addWidget( about, 1 )
 
 		self.setLayout( vbox )
 
@@ -64,3 +67,12 @@ class main_menu ( MenuDialog ):
 		self.send_message( Messages.Message( Messages.QUIT ) )
 		self.hide()
 		self.emit( QtCore.SIGNAL( "quit()" ) )
+
+	def do_about ( self ):
+		dialog = QtGui.QDialog()
+		dialog.setWindowTitle( "pyTower - About" )
+		l = QtGui.QLabel( "pyTower\nVersion " + Constants.VERSION + "\nhttp://github.com/jmhobbs/pyTower" )
+		v = QtGui.QVBoxLayout()
+		v.addWidget( l, 1 )
+		dialog.setLayout( v )
+		dialog.exec_()
