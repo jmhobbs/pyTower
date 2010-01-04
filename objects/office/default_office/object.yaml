@@ -1,0 +1,20 @@
+object:
+  class: office
+  name: Office
+  version: '0.1'
+  author:
+    name: John Hobbs
+    link: 'http://www.velvetcache.org/'
+  dimensions:
+    width: 9
+    height: 1
+  cost: 10000
+  sprites:
+    empty:
+      file: sprites.bmp
+      h_offset: 0
+      v_offset: 0
+    leased:
+      file: sprites.bmp
+      h_offset: 0
+      v_offset: 40
