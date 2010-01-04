@@ -18,4 +18,8 @@ v_offset = 0
 q_tx = None
 q_rx = None
 
-objects = [ [], [], [], [], [], [] ]
+objects = [ [], [], [], [], [], [], [] ] # 0 stars, 1 star, 2, 3, 4, 5, TOWER
+
+cash = 0
+game_clock = [ 1, 1, 1, 0, 0 ] # Y, M, D, H, M
+population = 0

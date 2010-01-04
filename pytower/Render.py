@@ -49,11 +49,11 @@ def stop_loading ():
 def initialize_surfaces ():
 	# Viewport offsets
 	set_loading( 'Finding offsets...' )
-	pygame.time.delay( 250 )
+
 	Globals.h_offset = Constants.CENTER
 	Globals.v_offset = Constants.BOTTOM - ( Constants.FLOOR_HEIGHT * 5 )
 	set_loading( 'Building surface...' )
-	pygame.time.delay( 250 )
+
 	Globals.s_full = pygame.Surface( ( Constants.GAME_WIDTH, Constants.GAME_HEIGHT ) )
 	# TODO: Replace with a real startup routine that draws nice dirt & sky :-/
 	Globals.s_full.fill( Colors.SKY_BLUE )
@@ -62,7 +62,7 @@ def initialize_surfaces ():
 	drawrect = ( Globals.s_full.get_rect().left, Globals.s_full.get_rect().bottom - ( Constants.FLOOR_HEIGHT * 5 ), Globals.s_full.get_rect().width, ( Constants.FLOOR_HEIGHT * 5 ) )
 	pygame.draw.rect( Globals.s_full, Colors.DARK_BROWN, drawrect )
 	set_loading( 'Drawing map...' )
-	pygame.time.delay( 250 )
+
 	# This is a representative surface used as a "map"
 	Globals.s_mini = pygame.Surface( ( Constants.MINI_WIDTH, Constants.MINI_HEIGHT ) )
 	Globals.s_mini.set_alpha( 200 )

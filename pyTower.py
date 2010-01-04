@@ -9,6 +9,8 @@ from os import walk
 from multiprocessing import Process, Queue
 from Queue import Empty
 
+from time import time
+
 from pytower import Constants
 from pytower import Colors
 from pytower import Messages
@@ -20,6 +22,32 @@ def quit():
 	ui.join()
 	pygame.quit()
 	exit()
+
+def notify_ui():
+	m = Messages.Message( Messages.NOTIFY_TIME )
+	m.time = Globals.game_clock
+	Globals.q_tx.put_nowait( m )
+	m = Messages.Message( Messages.NOTIFY_CASH )
+	m.cash = Globals.cash
+	Globals.q_tx.put_nowait( m )
+	m = Messages.Message( Messages.NOTIFY_POPULATION )
+	m.population = Globals.population
+	Globals.q_tx.put_nowait( m )
+
+def increment_game_clock():
+	Globals.game_clock[4] = Globals.game_clock[4] + 5
+	if Globals.game_clock[4] >= 60:
+		Globals.game_clock[4] = 0
+		Globals.game_clock[3] = Globals.game_clock[3] + 1
+		if Globals.game_clock[3] > 24:
+			Globals.game_clock[3] = 1
+			Globals.game_clock[2] = Globals.game_clock[2] + 1
+			if Globals.game_clock[2] > 6:
+				Globals.game_clock[2] = 1
+				Globals.game_clock[1] = Globals.game_clock[1] + 1
+				if Globals.game_clock[1] > 12:
+					Globals.game_clock[1] = 1
+					Globals.game_clock[0] = Globals.game_clock[0] + 1
 
 pygame.init()
 
@@ -58,19 +86,29 @@ while True:
 		print msg
 		if Messages.QUIT == msg.instruction:
 			quit()
-		elif Messages.NEWGAME == msg.instruction:
+		elif Messages.NEW_GAME == msg.instruction:
+			Globals.cash = 500000
+			Globals.game_clock = [ 1, 1, 1, 0, 0 ]
+			Globals.population = 0
 			break
 	except Empty:
 		pygame.time.delay( Constants.IPQUEUE_SLEEP )
 
 Render.initialize_surfaces()
 
+notify_ui()
+
 ui = Process( target=GUI.show_in_game_menu, args=( Globals.q_tx, Globals.q_rx ) )
 ui.start()
 
 Render.stop_loading()
 
+frame_remains = Constants.FRAME_LENGTH
+paused = False
 while True:
+
+	frame_start = time()
+
 	v_offset = Globals.v_offset
 	h_offset = Globals.h_offset
 	force_fu = False
@@ -111,6 +149,10 @@ while True:
 		print msg
 		if Messages.QUIT == msg.instruction:
 			quit()
+		elif Messages.PAUSE == msg.instruction:
+			paused = True
+		elif Messages.PLAY == msg.instruction:
+			paused = False
 	except Empty:
 		pass
 
@@ -130,3 +172,12 @@ while True:
 		Globals.v_offset = v_offset
 		Globals.h_offset = h_offset
 		Render.move()
+
+	# Run the clock!
+	if not paused:
+		frame_end = time()
+		frame_remains = frame_remains - ( frame_end - frame_start )
+		if 0 >= frame_remains:
+			increment_game_clock()
+			notify_ui()
+			frame_remains = Constants.FRAME_LENGTH
