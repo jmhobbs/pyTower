@@ -54,6 +54,18 @@ pygame.init()
 Render.init()
 
 Render.start_loading()
+Render.set_loading( 'Building Internal Map' )
+
+# Build game object mapping.
+"""
+Here's how this works.  The top left slice of the object goes in that index slot.
+All the other ones it overlaps get a # that references that slot. None means empty.
+"0" means floor there, but otherwise empty.
+"""
+Globals.game_map = [None] * ( Constants.GAME_HEIGHT / Constants.FLOOR_HEIGHT )
+for i in range( Constants.GAME_HEIGHT / Constants.FLOOR_HEIGHT ):
+	Globals.game_map[i] = [None] * ( Constants.GAME_WIDTH / 10 )
+
 Render.set_loading( 'Loading Objects' )
 
 for root, dirs, files in walk( 'objects/' ):
@@ -117,8 +129,11 @@ while True:
 		if event.type == QUIT:
 			quit()
 
-		if event.type == VIDEOEXPOSE:
+		elif event.type == VIDEOEXPOSE:
 			force_fu = True
+
+		elif event.type == MOUSEMOTION:
+			Render.MoveCursor( event.pos )
 
 		elif event.type == MOUSEBUTTONUP:
 			if event.button == 1:
@@ -172,6 +187,8 @@ while True:
 		Globals.v_offset = v_offset
 		Globals.h_offset = h_offset
 		Render.move()
+	else:
+		Render.dirty_update()
 
 	# Run the clock!
 	if not paused:

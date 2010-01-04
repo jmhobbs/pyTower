@@ -16,9 +16,12 @@ def full_update ():
 	Update the whole window surface. Usefull for moves or expose events.
 	"""
 	pygame.display.update()
+	Globals.dr_window = []
 
 def dirty_update ():
-	pygame.display.update( Globals.dr_window )
+	if list == type( Globals.dr_window ):
+		pygame.display.update( Globals.dr_window )
+	Globals.dr_window = []
 
 def start_loading ():
 	Globals.s_loading = pygame.image.load( 'resources/loading.bmp' ).convert()
@@ -54,6 +57,9 @@ def initialize_surfaces ():
 	Globals.v_offset = Constants.BOTTOM - ( Constants.FLOOR_HEIGHT * 5 )
 	set_loading( 'Building surface...' )
 
+	Globals.s_cursor = pygame.Surface( ( 30, 40 ) )
+	Globals.s_cursor.fill( Colors.WHITE )
+
 	Globals.s_full = pygame.Surface( ( Constants.GAME_WIDTH, Constants.GAME_HEIGHT ) )
 	# TODO: Replace with a real startup routine that draws nice dirt & sky :-/
 	Globals.s_full.fill( Colors.SKY_BLUE )
@@ -78,17 +84,32 @@ def initialize_surfaces ():
 	Globals.s_window.blit( Globals.s_mini, ( 10, 10 ), ( 0, 0, Constants.MINI_WIDTH, Constants.MINI_HEIGHT ) )
 	drawrect = ( 10 + ( Globals.h_offset / Constants.FLOOR_HEIGHT ), 10 + ( Globals.v_offset / Constants.FLOOR_HEIGHT ), ( Constants.WINDOW_WIDTH / Constants.FLOOR_HEIGHT ), ( Constants.WINDOW_HEIGHT / Constants.FLOOR_HEIGHT ) )
 	pygame.draw.rect( Globals.s_window, Colors.BLACK, drawrect )
+
 	full_update()
 
 def move ():
 	Globals.s_window.blit( Globals.s_full, ( 0, 0 ), ( 0 + Globals.h_offset, 0 + Globals.v_offset, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT ) )
+	RedrawMiniMap()
+	full_update()
 
-	drawrect = ( 9, 9, Constants.MINI_WIDTH + 2, Constants.MINI_HEIGHT + 2 )
-	pygame.draw.rect( Globals.s_window, Colors.BLACK, drawrect )
-
+def RedrawMiniMap ():
+	allrect = ( 9, 9, Constants.MINI_WIDTH + 2, Constants.MINI_HEIGHT + 2 )
+	pygame.draw.rect( Globals.s_window, Colors.BLACK, allrect )
 	Globals.s_window.blit( Globals.s_mini, ( 10, 10 ), ( 0, 0, Constants.MINI_WIDTH, Constants.MINI_HEIGHT ) )
-
 	drawrect = ( 10 + ( Globals.h_offset / Constants.FLOOR_HEIGHT ), 10 + ( Globals.v_offset / Constants.FLOOR_HEIGHT ), ( Constants.WINDOW_WIDTH / Constants.FLOOR_HEIGHT ), ( Constants.WINDOW_HEIGHT / Constants.FLOOR_HEIGHT ) )
 	pygame.draw.rect( Globals.s_window, Colors.BLACK, drawrect )
+	Globals.dr_window.append( allrect )
 
-	full_update()
+def MoveCursor ( pos ):
+	# 1 - Blit over previous cursor.
+	Globals.s_window.blit( Globals.s_full, Globals.r_cursor, ( 0 + Globals.h_offset + Globals.r_cursor[0], 0 + Globals.v_offset + Globals.r_cursor[1], Globals.r_cursor[2], Globals.r_cursor[3] ) )
+	# 2 - Dirty that rectangle.
+	Globals.dr_window.append( ( Globals.r_cursor[0], Globals.r_cursor[1], Globals.r_cursor[2], Globals.r_cursor[3] ) )
+	# 3 - Blit in the new cursor.
+	Globals.s_window.blit( Globals.s_cursor, pos )
+	# 4 - Dirty that rectangle.
+	Globals.dr_window.append( ( pos[0], pos[1], Globals.s_cursor.get_rect().width, Globals.s_cursor.get_rect().height ) )
+	# 5 - Save that cursor.
+	Globals.r_cursor = ( pos[0], pos[1], Globals.s_cursor.get_rect().width, Globals.s_cursor.get_rect().height )
+	# 6 - Redraw mini-map
+	RedrawMiniMap()

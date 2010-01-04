@@ -6,7 +6,7 @@ if __name__ == "__main__":
 
 VERSION = '0.1'
 
-FLOOR_HEIGHT = 40
+FLOOR_HEIGHT = 40 # Don't change, you'll have to redo all the graphics.
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 GAME_HEIGHT = 110 * FLOOR_HEIGHT
