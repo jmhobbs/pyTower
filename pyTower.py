@@ -168,6 +168,8 @@ while True:
 			paused = True
 		elif Messages.PLAY == msg.instruction:
 			paused = False
+		elif Messages.SET_CURSOR == msg.instruction:
+			Render.SetCursor( msg.cursor )
 	except Empty:
 		pass
 

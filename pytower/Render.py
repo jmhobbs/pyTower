@@ -57,8 +57,8 @@ def initialize_surfaces ():
 	Globals.v_offset = Constants.BOTTOM - ( Constants.FLOOR_HEIGHT * 5 )
 	set_loading( 'Building surface...' )
 
-	Globals.s_cursor = pygame.Surface( ( 30, 40 ) )
-	Globals.s_cursor.fill( Colors.WHITE )
+	# Default cursor is blank
+	Globals.s_cursor = pygame.Surface( ( 0, 0 ) )
 
 	Globals.s_full = pygame.Surface( ( Constants.GAME_WIDTH, Constants.GAME_HEIGHT ) )
 	# TODO: Replace with a real startup routine that draws nice dirt & sky :-/
@@ -86,6 +86,10 @@ def initialize_surfaces ():
 	pygame.draw.rect( Globals.s_window, Colors.BLACK, drawrect )
 
 	full_update()
+
+def SetCursor ( cursor ):
+	if None == cursor:
+		Globals.s_cursor = pygame.Surface( ( 0, 0 ) )
 
 def move ():
 	Globals.s_window.blit( Globals.s_full, ( 0, 0 ), ( 0 + Globals.h_offset, 0 + Globals.v_offset, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT ) )
