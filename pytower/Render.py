@@ -101,6 +101,8 @@ def RedrawMiniMap ():
 	Globals.dr_window.append( allrect )
 
 def MoveCursor ( pos ):
+	# Snap to our "grid" of 10xFLOOR_HEIGHT
+	pos = ( int( pos[0] / 10 ) * 10, int( pos[1] / Constants.FLOOR_HEIGHT ) * Constants.FLOOR_HEIGHT )
 	# 1 - Blit over previous cursor.
 	Globals.s_window.blit( Globals.s_full, Globals.r_cursor, ( 0 + Globals.h_offset + Globals.r_cursor[0], 0 + Globals.v_offset + Globals.r_cursor[1], Globals.r_cursor[2], Globals.r_cursor[3] ) )
 	# 2 - Dirty that rectangle.

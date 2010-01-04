@@ -133,7 +133,7 @@ while True:
 			force_fu = True
 
 		elif event.type == MOUSEMOTION:
-			Render.MoveCursor( ( int( event.pos[0] / 10 ), int( event.pos[1] / Constants.FLOOR_HEIGHT ) ) )
+			Render.MoveCursor( event.pos )
 
 		elif event.type == MOUSEBUTTONUP:
 			if event.button == 1:
