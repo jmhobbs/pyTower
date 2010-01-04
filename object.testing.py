@@ -1,8 +1,12 @@
 import yaml
+import os
 from pprint import pprint
-f = open( 'objects/office/default_office/object.yaml' )
-dm = yaml.load( f )
-f.close()
-for i in dm['object']['sprites']:
-	print i
-pprint( dm )
+
+for root, dirs, files in os.walk( 'objects/' ):
+	for file in files:
+		if file == 'object.yaml':
+			print '---- Found: ' + root + '/' + file + ' ----'
+			f = open( root + '/' + file )
+			dm = yaml.load( f )
+			f.close()
+			pprint( dm )

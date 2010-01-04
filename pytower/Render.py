@@ -6,12 +6,15 @@ import Colors
 import Globals
 
 def init ():
-	Globals.s_window = pygame.display.set_mode( ( Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT ), 0, 32 )
+	pygame.display.set_icon( pygame.image.load( 'resources/icon.16x16.png' ) )
+	Globals.s_window = pygame.display.set_mode( ( Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT ) )
 	pygame.display.set_caption( 'pyTower - v' + Constants.VERSION  )
 	Globals.f_loading = pygame.font.SysFont( None, 48 )
 
-# We aren't a full screen game, so every once in a while we need a full update.
 def full_update ():
+	"""
+	Update the whole window surface. Usefull for moves or expose events.
+	"""
 	pygame.display.update()
 
 def dirty_update ():
@@ -21,16 +24,23 @@ def start_loading ():
 	Globals.s_loading = pygame.image.load( 'resources/loading.bmp' ).convert()
 	Globals.s_window.blit( Globals.s_loading, ( 0, 0 ) )
 	Globals.r_loading = None
+	full_update()
 
 def set_loading ( text ):
 	if None != Globals.r_loading:
 		Globals.s_window.blit( Globals.s_loading, Globals.r_loading, Globals.r_loading )
+		Globals.dr_window.append( Globals.r_loading )
+
 	text = Globals.f_loading.render( text , True, Colors.BLACK )
+
 	Globals.r_loading = text.get_rect()
 	Globals.r_loading.centerx = Globals.s_window.get_rect().centerx
 	Globals.r_loading.centery = Globals.s_window.get_rect().centery
+
 	Globals.s_window.blit( text, Globals.r_loading )
-	pygame.display.update() # TODO: Switch to dirty rectangle
+	Globals.dr_window.append( Globals.r_loading )
+
+	dirty_update()
 
 def stop_loading ():
 	del Globals.s_loading

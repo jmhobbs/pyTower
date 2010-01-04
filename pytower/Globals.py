@@ -17,3 +17,5 @@ v_offset = 0
 
 q_tx = None
 q_rx = None
+
+objects = [ [], [], [], [], [], [] ]

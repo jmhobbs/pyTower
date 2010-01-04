@@ -20,6 +20,8 @@ class MenuDialog ( QtGui.QWidget ):
 		else:
 			self.setWindowTitle( 'pyTower' )
 
+		self.setWindowIcon( QtGui.QIcon( 'resources/icon.16x16.png' ) )
+
 		self.timer = QtCore.QTimer()
 		QtCore.QObject.connect( self.timer, QtCore.SIGNAL( "timeout()" ), self.check_messages )
 		self.timer.start( Constants.IPQUEUE_SLEEP )
