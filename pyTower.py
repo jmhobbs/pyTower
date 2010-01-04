@@ -7,6 +7,7 @@ import yaml
 from os import walk
 
 from multiprocessing import Process, Queue
+from Queue import Empty
 
 from pytower import Constants
 from pytower import Colors
@@ -59,10 +60,14 @@ while True:
 			quit()
 		elif Messages.NEWGAME == msg.instruction:
 			break
-	except:
+	except Empty:
 		pygame.time.delay( Constants.IPQUEUE_SLEEP )
 
 Render.initialize_surfaces()
+
+ui = Process( target=GUI.show_in_game_menu, args=( Globals.q_tx, Globals.q_rx ) )
+ui.start()
+
 Render.stop_loading()
 
 while True:
@@ -99,6 +104,15 @@ while True:
 			elif event.key == pygame.K_HOME:
 				h_offset = Constants.CENTER
 				v_offset = Constants.BOTTOM
+
+	# Check with the UI message queue
+	try:
+		msg = Globals.q_rx.get_nowait()
+		print msg
+		if Messages.QUIT == msg.instruction:
+			quit()
+	except Empty:
+		pass
 
 	# Over-adjust corrections...
 	if ( h_offset + Constants.WINDOW_WIDTH ) > Constants.GAME_WIDTH:

@@ -78,3 +78,34 @@ class main_menu ( MenuDialog ):
 		v.addWidget( l, 1 )
 		dialog.setLayout( v )
 		dialog.exec_()
+
+class in_game_menu ( MenuDialog ):
+	def __init__ ( self, rq, sq, parent=None ):
+		MenuDialog.__init__( self, rq, sq, 'pyTower Menu',  parent )
+
+		self.resize( 250, 10 )
+
+		quit = QtGui.QPushButton( "Quit" )
+		QtCore.QObject.connect( quit, QtCore.SIGNAL( "clicked()" ), self.do_quit )
+		about = QtGui.QPushButton( "About" )
+		QtCore.QObject.connect( about, QtCore.SIGNAL( "clicked()" ), self.do_about )
+
+		vbox = QtGui.QVBoxLayout()
+		vbox.addWidget( quit, 1 )
+		vbox.addWidget( about, 1 )
+
+		self.setLayout( vbox )
+
+	def do_quit ( self ):
+		self.send_message( Messages.Message( Messages.QUIT ) )
+		self.hide()
+		self.emit( QtCore.SIGNAL( "quit()" ) )
+
+	def do_about ( self ):
+		dialog = QtGui.QDialog()
+		dialog.setWindowTitle( "pyTower - About" )
+		l = QtGui.QLabel( "pyTower\nVersion " + Constants.VERSION + "\nhttp://github.com/jmhobbs/pyTower" )
+		v = QtGui.QVBoxLayout()
+		v.addWidget( l, 1 )
+		dialog.setLayout( v )
+		dialog.exec_()

@@ -12,3 +12,10 @@ def show_main_menu ( rq, sq ):
 	mm.show()
 	QtCore.QObject.connect( mm, QtCore.SIGNAL( "quit()" ), app.quit )
 	app.exec_()
+
+def show_in_game_menu ( rq, sq ):
+	app = QtGui.QApplication( [] )
+	mm = Widgets.in_game_menu( rq, sq )
+	mm.show()
+	QtCore.QObject.connect( mm, QtCore.SIGNAL( "quit()" ), app.quit )
+	app.exec_()
