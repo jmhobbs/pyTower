@@ -62,9 +62,9 @@ Here's how this works.  The top left slice of the object goes in that index slot
 All the other ones it overlaps get a # that references that slot. None means empty.
 "0" means floor there, but otherwise empty.
 """
-Globals.game_map = [None] * ( Constants.GAME_HEIGHT / Constants.FLOOR_HEIGHT )
-for i in range( Constants.GAME_HEIGHT / Constants.FLOOR_HEIGHT ):
-	Globals.game_map[i] = [None] * ( Constants.GAME_WIDTH / 10 )
+Globals.game_map = [None] * Constants.FLOORS
+for i in range( Constants.FLOORS ):
+	Globals.game_map[i] = [None] * ( Constants.SLICES )
 
 Render.set_loading( 'Loading Objects' )
 
@@ -137,28 +137,24 @@ while True:
 		elif event.type == MOUSEMOTION:
 			Render.MoveCursor( event.pos )
 
-		elif event.type == MOUSEBUTTONUP:
-			if event.button == 1:
-				# Check if it is in the mini box, move the box if needed.
-				if event.pos[0] > 10 and event.pos[0] < ( 10 + Constants.MINI_WIDTH ) and event.pos[1] > 10 and event.pos[1] < ( 10 + Constants.MINI_HEIGHT ):
-					h_offset = ( event.pos[0] * Constants.FLOOR_HEIGHT ) - Constants.WINDOW_WIDTH
-					v_offset = ( event.pos[1] * Constants.FLOOR_HEIGHT ) - Constants.WINDOW_HEIGHT
+		#elif event.type == MOUSEBUTTONUP:
+			#if event.button == 1:
 
 		elif event.type == KEYUP:
 			if event.key == pygame.K_q: # q
 				ui.terminate()
 				quit()
 			elif event.key == pygame.K_DOWN:
-					v_offset = v_offset + Constants.FLOOR_HEIGHT
+					v_offset = v_offset + 1
 			elif event.key == pygame.K_UP:
-				v_offset = v_offset - Constants.FLOOR_HEIGHT
-			elif event.key == pygame.K_LEFT and h_offset:
-				h_offset = h_offset - Constants.FLOOR_HEIGHT
+				v_offset = v_offset - 1
+			elif event.key == pygame.K_LEFT:
+				h_offset = h_offset - 1
 			elif event.key == pygame.K_RIGHT:
-				h_offset = h_offset + Constants.FLOOR_HEIGHT
+				h_offset = h_offset + 1
 			elif event.key == pygame.K_HOME:
-				h_offset = Constants.CENTER
-				v_offset = Constants.BOTTOM
+				h_offset = 0
+				v_offset = 0 # TODO: Better numbers
 
 	# Check with the UI message queue
 	try:
@@ -176,13 +172,13 @@ while True:
 		pass
 
 	# Over-adjust corrections...
-	if ( h_offset + Constants.WINDOW_WIDTH ) > Constants.GAME_WIDTH:
-		h_offset = Constants.GAME_WIDTH - Constants.WINDOW_WIDTH
+	if ( h_offset + ( Constants.WINDOW_WIDTH / Constants.SLICE_WIDTH ) ) > Constants.SLICES:
+		h_offset = Constants.WINDOW_WIDTH / Constants.SLICE_WIDTH # TODO: This is probably wrong...
 	elif h_offset < 0:
 		h_offset = 0
 
-	if ( v_offset + Constants.WINDOW_HEIGHT ) > Constants.GAME_HEIGHT:
-		v_offset = Constants.GAME_HEIGHT - Constants.WINDOW_HEIGHT
+	if ( v_offset + ( Constants.WINDOW_HEIGHT / Constants.FLOOR_HEIGHT ) ) > Constants.FLOORS:
+		v_offset = Constants.WINDOW_HEIGHT / Constants.FLOOR_HEIGHT
 	elif v_offset < 0:
 		v_offset = 0
 

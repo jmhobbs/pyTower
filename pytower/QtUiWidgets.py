@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
+if __name__ == "__main__":
+	print "Sorry, you can't run this stand-alone."
+	exit()
+
 from PyQt4 import QtCore, QtGui, Qt
 from Queue import Empty
 import Constants
 import Messages
 import locale
-
-if __name__ == "__main__":
-	print "No Direct Invocation"
-	exit()
 
 def about ( obj ):
 	QtGui.QMessageBox.about( obj, "pyTower - About", "pyTower " + Constants.VERSION + "\n\nCopyright 2010, John Hobbs\nhttp://github.com/jmhobbs/pyTower" )

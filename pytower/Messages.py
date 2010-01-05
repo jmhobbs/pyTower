@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+if __name__ == "__main__":
+	print "Sorry, you can't run this stand-alone."
+	exit()
+
 # Forcing the use of these messages may seem restrictive, but it lets us have a defined protocol set.
 QUIT = 0 # Quit the game immediately
 NEW_GAME = 1 # Start a new game, immediately

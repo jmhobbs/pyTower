@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
-# It feels wrong, but I'm not a python guru...
+if __name__ == "__main__":
+	print "Sorry, you can't run this stand-alone."
+	exit()
+
+# It feels wrong, but I'm not a python guru and have no other fix...
 s_window = None
 dr_window = []
 

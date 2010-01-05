@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-from PyQt4 import QtCore, QtGui
-import QtUiWidgets as Widgets
 
 if __name__ == "__main__":
-	print "No Direct Invocation"
+	print "Sorry, you can't run this stand-alone."
 	exit()
+
+from PyQt4 import QtCore, QtGui
+import QtUiWidgets as Widgets
 
 def show_main_menu ( rq, sq ):
 	app = QtGui.QApplication( [] )
