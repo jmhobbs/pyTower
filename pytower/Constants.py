@@ -6,7 +6,7 @@ if __name__ == "__main__":
 
 VERSION = '0.1'
 
-FLOOR_HEIGHT = 40
+FLOOR_HEIGHT = 40 # Don't change, you'll have to redo all the graphics.
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 GAME_HEIGHT = 110 * FLOOR_HEIGHT
@@ -19,3 +19,4 @@ MINI_HEIGHT = GAME_HEIGHT / FLOOR_HEIGHT
 MINI_RATIO = FLOOR_HEIGHT
 
 IPQUEUE_SLEEP = 100
+FRAME_LENGTH = 0.10

@@ -21,3 +21,15 @@ q_rx = None
 # Resources
 res_floor = None
 res_dirt = None
+
+objects = [ [], [], [], [], [], [], [] ] # 0 stars, 1 star, 2, 3, 4, 5, TOWER
+
+cash = 0
+game_clock = [ 1, 1, 1, 0, 0 ] # Y, M, D, H, M
+population = 0
+
+game_map = None
+
+# The cursor...
+r_cursor = [ 0 ] * 4
+s_cursor = None
