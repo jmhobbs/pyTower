@@ -10,6 +10,9 @@ if __name__ == "__main__":
 	print "No Direct Invocation"
 	exit()
 
+def about ( obj ):
+	QtGui.QMessageBox.about( obj, "pyTower - About", "pyTower " + Constants.VERSION + "\n\nCopyright 2010, John Hobbs\nhttp://github.com/jmhobbs/pyTower" )
+
 class MenuDialog ( QtGui.QWidget ):
 	def __init__ ( self, rq, sq, title=None, parent=None ):
 		QtGui.QWidget.__init__( self, parent )
@@ -73,13 +76,7 @@ class main_menu ( MenuDialog ):
 		self.emit( QtCore.SIGNAL( "quit()" ) )
 
 	def do_about ( self ):
-		dialog = QtGui.QDialog()
-		dialog.setWindowTitle( "pyTower - About" )
-		l = QtGui.QLabel( "pyTower\nVersion " + Constants.VERSION + "\nhttp://github.com/jmhobbs/pyTower" )
-		v = QtGui.QVBoxLayout()
-		v.addWidget( l, 1 )
-		dialog.setLayout( v )
-		dialog.exec_()
+		about( self )
 
 class in_game_menu ( MenuDialog ):
 	def __init__ ( self, rq, sq, parent=None ):
@@ -155,10 +152,4 @@ class in_game_menu ( MenuDialog ):
 		self.emit( QtCore.SIGNAL( "quit()" ) )
 
 	def do_about ( self ):
-		dialog = QtGui.QDialog()
-		dialog.setWindowTitle( "pyTower - About" )
-		l = QtGui.QLabel( "pyTower\nVersion " + Constants.VERSION + "\nhttp://github.com/jmhobbs/pyTower" )
-		v = QtGui.QVBoxLayout()
-		v.addWidget( l, 1 )
-		dialog.setLayout( v )
-		dialog.exec_()
+		about( self )
