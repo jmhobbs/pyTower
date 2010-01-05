@@ -53,15 +53,12 @@ def initialize_surfaces ():
 	set_loading( 'Building surface...' )
 	pygame.time.delay( 250 )
 	Globals.s_full = pygame.Surface( ( Constants.GAME_WIDTH, Constants.GAME_HEIGHT ) )
-	# TODO: Replace with a real startup routine that draws nice dirt & sky :-/
+	# TODO: Better sky?
 	Globals.s_full.fill( Colors.SKY_BLUE )
+	# Draw in the dirt
 	for y in range( 1, 10 ):
 		for x in range( 0, Constants.GAME_WIDTH, Constants.FLOOR_HEIGHT ):
 			Globals.s_full.blit( Globals.res_dirt, ( x, Globals.s_full.get_rect().bottom - ( Constants.FLOOR_HEIGHT * y ) ) )
-	#drawrect = ( Globals.s_full.get_rect().left, Globals.s_full.get_rect().bottom - ( Constants.FLOOR_HEIGHT * 10 ), Globals.s_full.get_rect().width, ( Constants.FLOOR_HEIGHT * 5 ) )
-	#pygame.draw.rect( Globals.s_full, Colors.LIGHT_BROWN, drawrect )
-	#drawrect = ( Globals.s_full.get_rect().left, Globals.s_full.get_rect().bottom - ( Constants.FLOOR_HEIGHT * 5 ), Globals.s_full.get_rect().width, ( Constants.FLOOR_HEIGHT * 5 ) )
-	#pygame.draw.rect( Globals.s_full, Colors.DARK_BROWN, drawrect )
 	set_loading( 'Drawing map...' )
 	pygame.time.delay( 250 )
 	# This is a representative surface used as a "map"
