@@ -15,11 +15,12 @@ from pytower import Constants
 from pytower import Colors
 from pytower import Messages
 from pytower import Globals
+import pytower.minimap as MiniMap
 import pytower.QtUi as GUI
 import pytower.Render as Render
 
 def quit():
-	ui.join()
+	Globals.q_tx.put_nowait( Messages.Message( Messages.QUIT ) )
 	pygame.quit()
 	exit()
 
@@ -141,8 +142,7 @@ while True:
 			#if event.button == 1:
 
 		elif event.type == KEYUP:
-			if event.key == pygame.K_q: # q
-				ui.terminate()
+			if event.key == pygame.K_q:
 				quit()
 			elif event.key == pygame.K_DOWN:
 					v_offset = v_offset + 1
@@ -172,13 +172,13 @@ while True:
 		pass
 
 	# Over-adjust corrections...
-	if ( h_offset + ( Constants.WINDOW_WIDTH / Constants.SLICE_WIDTH ) ) > Constants.SLICES:
-		h_offset = Constants.WINDOW_WIDTH / Constants.SLICE_WIDTH # TODO: This is probably wrong...
+	if h_offset + Constants.WINDOW_SLICES > Constants.SLICES:
+		h_offset = Constants.SLICES - Constants.WINDOW_SLICES
 	elif h_offset < 0:
 		h_offset = 0
 
-	if ( v_offset + ( Constants.WINDOW_HEIGHT / Constants.FLOOR_HEIGHT ) ) > Constants.FLOORS:
-		v_offset = Constants.WINDOW_HEIGHT / Constants.FLOOR_HEIGHT
+	if v_offset + Constants.WINDOW_FLOORS > Constants.FLOORS:
+		v_offset = Constants.FLOORS - Constants.WINDOW_FLOORS
 	elif v_offset < 0:
 		v_offset = 0
 

@@ -16,8 +16,8 @@ s_full = None
 
 s_mini = None
 
-h_offset = 0
-v_offset = 0
+h_offset = 0 # How many slices we are from the left
+v_offset = 0 # How many floors we are from the top
 
 q_tx = None
 q_rx = None

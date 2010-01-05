@@ -79,8 +79,8 @@ def stop_loading ():
 def initialize_surfaces ():
 	set_loading( 'Finding offsets...' )
 
-	Globals.h_offset = 0
-	Globals.v_offset = 0
+	Globals.h_offset = int( ( Constants.SLICES - Constants.WINDOW_SLICES ) )
+	Globals.v_offset = Constants.FLOORS - Constants.WINDOW_FLOORS - int( Constants.DIRT_FLOORS / 2 )
 
 	set_loading( 'Building surfaces...' )
 
@@ -91,16 +91,25 @@ def initialize_surfaces ():
 	# TODO: Mini map...
 
 	set_loading( 'Reticulating splines...' )
-
-	# TODO: Blit the initial map on.
+	move()
 
 def SetCursor ( cursor ):
 	if None == cursor:
 		Globals.s_cursor = pygame.Surface( ( 0, 0 ) )
 
 def move ():
-	# TODO: Rework
-	pass
+	print Globals.h_offset, ',', Globals.v_offset
+	for i in range( 0, Constants.WINDOW_FLOORS ):
+		for j in range( 0, Constants.WINDOW_SLICES ):
+			f = Globals.v_offset + i
+			s = Globals.h_offset + j
+			if Globals.game_map[f][s] == None:
+				drawrect = ( j * Constants.SLICE_WIDTH, i * Constants.FLOOR_HEIGHT, Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT )
+				if ( Constants.FLOORS - f ) > Constants.DIRT_FLOORS:
+					pygame.draw.rect( Globals.s_window, Colors.SKY_BLUE, drawrect )
+				else:
+					pygame.draw.rect( Globals.s_window, Colors.LIGHT_BROWN, drawrect )
+	full_update()
 
 def RedrawMiniMap ():
 	# TODO: Rework

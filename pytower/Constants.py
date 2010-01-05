@@ -13,10 +13,13 @@ SLICE_WIDTH = 10
 # You can change these for more play space.
 FLOORS = 110
 SLICES = 300
+DIRT_FLOORS = 10
 
 # This is just visible area, you can change it
-WINDOW_HEIGHT = 600 # 15 Floors
-WINDOW_WIDTH = 800 # 80 slices
+WINDOW_FLOORS = 15
+WINDOW_SLICES = 80
+WINDOW_HEIGHT = WINDOW_FLOORS * FLOOR_HEIGHT
+WINDOW_WIDTH = WINDOW_SLICES * SLICE_WIDTH
 
 # 1px in mini == 10px full
 MINI_HEIGHT = ( FLOOR_HEIGHT * FLOORS ) / 10

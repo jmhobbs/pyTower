@@ -126,6 +126,10 @@ class in_game_menu ( MenuDialog ):
 					self.cash_label.setText( locale.currency( x.cash, grouping=True ) )
 				elif Messages.NOTIFY_POPULATION == x.instruction:
 					self.population_label.setText( str( x.population ) )
+				elif Messages.QUIT == x.instruction:
+					self.hide()
+					self.emit( QtCore.SIGNAL( "quit()" ) )
+					return
 				else:
 					print "UI - RX:", x
 		except Empty:
