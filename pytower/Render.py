@@ -79,8 +79,8 @@ def stop_loading ():
 def initialize_surfaces ():
 	set_loading( 'Finding offsets...' )
 
-	Globals.h_offset = int( ( Constants.SLICES - Constants.WINDOW_SLICES ) )
-	Globals.v_offset = Constants.FLOORS - Constants.WINDOW_FLOORS - int( Constants.DIRT_FLOORS / 2 )
+	Globals.h_offset = Constants.CENTER
+	Globals.v_offset = Constants.BOTTOM
 
 	set_loading( 'Building surfaces...' )
 
@@ -98,17 +98,34 @@ def SetCursor ( cursor ):
 		Globals.s_cursor = pygame.Surface( ( 0, 0 ) )
 
 def move ():
-	print Globals.h_offset, ',', Globals.v_offset
 	for i in range( 0, Constants.WINDOW_FLOORS ):
+		slice_look_ahead = 0
 		for j in range( 0, Constants.WINDOW_SLICES ):
+			# slice_look_ahead is used to skip over already rendered things
+			if j < slice_look_ahead:
+				continue
 			f = Globals.v_offset + i
 			s = Globals.h_offset + j
+			placement = ( j * Constants.SLICE_WIDTH, i * Constants.FLOOR_HEIGHT )
 			if Globals.game_map[f][s] == None:
-				drawrect = ( j * Constants.SLICE_WIDTH, i * Constants.FLOOR_HEIGHT, Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT )
+				# Nothing there. Draw dirt or sky.
 				if ( Constants.FLOORS - f ) > Constants.DIRT_FLOORS:
-					pygame.draw.rect( Globals.s_window, Colors.SKY_BLUE, drawrect )
+					pygame.draw.rect( Globals.s_window, Colors.SKY_BLUE, ( placement[0], placement[1], Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
 				else:
-					pygame.draw.rect( Globals.s_window, Colors.LIGHT_BROWN, drawrect )
+					# Dirt is a special case. We want to read ahead to use as much of our tile as we can
+					r = 1
+					for q in range( 0, 3 ):
+						try:
+							if Globals.game_map[f][s+q] != None:
+								break
+						except:
+							break
+						r = r + 1
+					Globals.s_window.blit( Globals.res_dirt, placement, ( 0, 0, r * Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
+					slice_look_ahead = j + r
+			elif Globals.game_map[f][s] == 0:
+				# Empty flooring
+				Globals.s_window.blit( Globals.res_floor, placement )
 	full_update()
 
 def RedrawMiniMap ():

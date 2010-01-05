@@ -20,7 +20,8 @@ import pytower.QtUi as GUI
 import pytower.Render as Render
 
 def quit():
-	Globals.q_tx.put_nowait( Messages.Message( Messages.QUIT ) )
+	if None != ui:
+		ui.join()
 	pygame.quit()
 	exit()
 
@@ -130,6 +131,7 @@ while True:
 
 	for event in pygame.event.get():
 		if event.type == QUIT:
+			Globals.q_tx.put_nowait( Messages.Message( Messages.QUIT ) )
 			quit()
 
 		elif event.type == VIDEOEXPOSE:
@@ -143,6 +145,7 @@ while True:
 
 		elif event.type == KEYUP:
 			if event.key == pygame.K_q:
+				Globals.q_tx.put_nowait( Messages.Message( Messages.QUIT ) )
 				quit()
 			elif event.key == pygame.K_DOWN:
 					v_offset = v_offset + 1
