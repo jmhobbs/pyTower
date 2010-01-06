@@ -31,3 +31,7 @@ MINI_WIDTH = SLICES
 
 IPQUEUE_SLEEP = 100
 FRAME_LENGTH = 0.10
+
+
+############# Costs #################
+FLOOR_SLICE_COST = 500

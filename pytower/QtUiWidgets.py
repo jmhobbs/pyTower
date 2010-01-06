@@ -135,7 +135,7 @@ class in_game_menu ( MenuDialog ):
 		QtCore.QObject.connect( cursor_button, QtCore.SIGNAL( "clicked()" ), self.set_cursor )
 		hbox.addWidget( cursor_button )
 		cursor_button = QtGui.QPushButton( QtGui.QIcon( 'resources/floor.bmp' ), '' )
-		QtCore.QObject.connect( cursor_button, QtCore.SIGNAL( "clicked()" ), CURRY( self.set_cursor, 'resources/floor.bmp' ) )
+		QtCore.QObject.connect( cursor_button, QtCore.SIGNAL( "clicked()" ), CURRY( self.set_cursor, 'resources/floor.bmp', 'floor' ) )
 		hbox.addWidget( cursor_button )
 		self.pause_button = QtGui.QPushButton( QtGui.QIcon( 'resources/in_game_menu/pause.png' ), '' )
 		QtCore.QObject.connect( self.pause_button, QtCore.SIGNAL( "clicked()" ), self.play_pause )
@@ -164,10 +164,8 @@ class in_game_menu ( MenuDialog ):
 		except Empty:
 			return
 
-	def set_cursor ( self, cursor=None ):
-		m = Messages.Message( Messages.SET_CURSOR )
-		m.cursor = cursor
-		self.send_message( m )
+	def set_cursor ( self, cursor=None, obj=None):
+		self.send_message( Messages.Message( Messages.SET_CURSOR, {'cursor': cursor, 'object': obj} ) )
 
 	def play_pause ( self ):
 		if self.paused:

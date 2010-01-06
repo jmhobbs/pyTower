@@ -1,0 +1,394 @@
+---------------------------------------------------------------------
+SimTower -- The Unofficial FAQ (Frequently Asked Question)
+---------------------------------------------------------------------
+
+	
+Hello, my name is Steve Novicki. I am a gigantic fan of Yoot 
+Saito's masterpiece SimTower, and I will be narrating this FAQ, which 
+took me approximately a full two days to write, so you better 
+appreciate it! Also, this FAQ is legally Copyright February 15, 2000 
+by Steve Novicki. Do not rip off of this FAQ, I can and will take 
+legal action against you, meaning that I will sue you and easily win. 
+With that boring crap said, let's get to the FAQ!
+
+CONTENTS
+---------------------------------------------------------------------
+
+1 - A SimTower Day's Schedule
+2 - Tower Transportation
+3 - Shops, Fast Food Places, and Other Places of Commerce
+4 - Offices and Condos
+5 - Hotels, Suites, and Housekeeping
+6 - SimTower's Method of Evaluation
+7 – When VIPs Come For a Visit
+8 – Star Requirements 
+9 - And Of Course, Last But Certainly Not Least, Cheats
+
+---------------------------------------------------------------------
+1 - The Time Schedule of a Normal Day (weekday) in SimTower
+---------------------------------------------------------------------
+
+	Every building in SimTower starts and stops at a specific time, 
+as they do in real life. I have compiled a list of all of the 
+starting and stopping times that different buildings open and close.
+
+	5:00AM : Dawn.
+	6:30AM : Hotel guests begin to check out, continues until noon.
+	7:00AM : Garbage pickup.
+	9:00AM : Workday begins (Offices open.)
+	10:00AM : Shops and Fast Food open.
+	12:00PM - 1:00PM : Lunch hour.
+	1:00PM - 4:00PM : Movie runs in the theaters.
+	5:00PM : Offices begin to close. 
+		   Restaurants open. 
+		   Income from Party Halls.
+	5:00PM - 8:00PM : Movie runs in the theaters.
+	6:00PM : Dusk.
+	8:00PM : Movie Theaters close.
+		   Income from Movie Theaters.
+	9:00PM : Shops and Fast Food close.
+		   Income from Fast Food.
+	11:00PM : Restaurants close.
+		    Income from Restaurants. 
+
+	There you have it, a complete listing of a SimTower workday, 
+either the first or second weekday. It is always like this, no 
+exceptions. Also, I'm not sure, but I think that it's at 5:00PM that 
+your Hotel guests begin to check in, either five or 6:00PM. Check for 
+me, will ya?
+
+---------------------------------------------------------------------
+2 - Tower Transportation
+---------------------------------------------------------------------
+
+	In SimTower, your transportation system MUST be completely 
+perfect and bug-free, or else it will crumble and fail when your 
+tower ages. Fortunately, I am here to help you achieve this :)
+	When you start out, you should have at least one elevator 
+spanning all of your floors, at the most, fifteen floors. This helps 
+ease congestion when your tower is older and more populated. Also, 
+keep in mind that your Sims can only change elevators ONCE PERT TRIP. 
+This means that if a Sim rides an Express Elevator up to floor sixty, 
+and wants to get to floor sixty-eight, he can change elevators only 
+once to get to floor sixty-eight. Keep his in mind when designing 
+your elevator system. Also, the Sims cannot change elevators at just 
+any old floor, they must ride up to a Sky Lobby and there they can 
+switch. Shafts cannot be placed over other objects like stairs, 
+escalators, and stuff like that, so be careful when planning them.
+One last thing for elevators, the shafts cannot overlap when they 
+don't have at least eight floors of free space on either side. This 
+frustrated me many times, so keep it in mind. There is a maximum of 
+twenty-four elevator shafts allowed in a single tower. 
+	Stairs are SimTower's most primitive mode of transportation. 
+However, they provide an excellent means of elevator congestion 
+relief, such as at lunch hour. With a few well-placed stairs, you can 
+alleviate almost half of your elevators' congestion. The Sims are 
+only willing to walk at the most four flights of stairs to get to a 
+certain destination, this is about the only rule to follow while 
+placing stairs. You can have a maximum of sixty-four total stairs and 
+escalators. They also cost a mere $5,000 per set of stairs, not that 
+much at all.
+	Escalators are special. They can only be used in commercial 
+areas, like shops, restaurants, fast food, etc., but can also be 
+placed in just blank floor sections. They, like stairs, don't cost 
+much at all, just a lot of commercial space to use them in. You can 
+have a maximum of sixty-four total stairs and escalators.
+	This concludes the Transportation section of my FAQ. I hope 
+that it has been most useful to you.
+
+---------------------------------------------------------------------
+3 - Shops, Fast Food Places, and Other Places of Commerce
+---------------------------------------------------------------------
+
+	Places of commerce are very important to your tower in the 
+manner of money and population. They all have set amounts of daily 
+income, like $-5,000, $0, and $5,000, and these are very important to 
+your tower's funds. They also boost your population to be able to 
+graduate to higher Star ratings. 
+
+	Fast Food Places -- These are available at the beginning of the 
+game. They generate a pretty good source of income, however have a 
+very bad environment, but this isn't very important to you. If I were 
+you, I would only build three or four of these at the beginning just 
+to generate some income, but then stop building these when 
+restaurants come around. Fast Food places cost $100,000 each.
+
+	Restaurants -- Available at the three-Star rating. These are 
+VERY hard to achieve the Good and Very Good evaluation, mainly 
+because not that many people patronize these, they are all at the 
+Fast Foods instead :) Restaurants open at night, and usually lose 
+money unless they are far developed. Build most of these when you get 
+the chance, because they generate far more income than Fast Food 
+places and are all around better than Fast Food places, the only 
+downside to restaurants is their very large price. 
+	11:00PM : Restaurants close.
+		    Income from Restaurants. 
+
+	There you have it, a complete listing of a SimTower workday, 
+either the first or second weekday. It is always like this, no 
+exceptions. Also, I'm not sure, but I think that it's at 5:00PM that 
+your Hotel guests begin to check in, either five or 6:00PM. Check for 
+me, will ya?
+
+4 - Offices and Condos
+
+	Offices in SimTower, as in real life, are the primary building 
+block of any good skyscraper. They are pretty much self-sufficient, 
+but let's go over some basic facts about them, shall we?
+
+1.	Offices cost $40,000 each.
+	
+2.	Offices require any kind of transportation, except 
+Escalators, for obvious reasons.
+	
+3.	Offices fork over their rent on a quarterly basis.
+	
+4.	Offices can hold a maximum of six workers. 
+	
+5.	They do not need to be placed in any specific area of 
+the tower.
+	
+6.	They have three different rent rates.
+
+	The facts listed above should pretty much answer all of your 
+questions about Offices, but I'll go into some more detail. Each 
+Office forks over their rent promptly at 5:00AM every morning of the 
+first weekday (pretty different from real life, huh?) Offices start 
+to open at 9:00AM every weekday morning, and start to close at 5:00PM 
+every afternoon. But some workaholics leave their lights on well past 
+8:00PM. Also, you should never place Offices after 1:00PM on the 
+second weekday. They do not sell until the next weekday, therefore 
+cheating you out of a rent. The only times they do sell is on the 
+first weekday, 9:00AM - 12:59PM, and the same for the second weekday. 
+Last, since there is no limit to the amount of Offices you can have, 
+you could build only commercial areas the first five floors around 
+any Sky Lobby, and then use a mixture of Offices and Hotels to fill 
+up the rest of the space.
+	One last thing about Offices; they don't mind being next to 
+other Offices. Some places, like Hotels, get cranky if they're placed 
+next to a noisy place like an Office or a Restaurant; Offices don't 
+care one way or the other if they're next to another Office or place 
+that makes a lot of noise. It's just that Offices are the place that 
+is noisy so you should place an entire floor of just Offices to 
+ensure that people don't get cranky.
+
+	Condominiums (Condos) are different from other buildings in 
+SimTower; they do not generate a quarterly, daily, or yearly income. 
+Instead, when a condo sells, the money is forked over to you in one 
+large amount; there is no income. I think that this is kind of bad, 
+because it costs money to keep those condos in working condition. And 
+these figures add up fast in your account. Therefore, only place 
+condos when you're completely financially secure. Condos cost 
+anywhere from $40,000 - $200,000 each (please, don't make the mistake 
+of selling a Condo for half of its initial building cost!), and like 
+Offices, the price affects the happiness of the Condo's inhabitants. 
+If you're not careful, the happiness of its inhabitants deteriorates 
+due to an expensive price, so keep that in mind. And if you place a 
+Condo anytime during 9:00AM – 12:59PM on either of the two weekdays, 
+it sells almost immediately, so keep this in mind as well. I think 
+that's all there is on Condos.
+
+5 – Hotels, Suites, and Housekeeping
+
+	Another form of excellent daily income are Hotels and Hotel 
+Suites. Both of these provide a very good source of daily income to 
+ease your budget (and, in the early beginning of all my towers, I use 
+this income to live upon) and live on sometimes. 
+	There are two kinds of Hotels: Single Hotels and Double Hotels. 
+Single Hotels are just what they sound like: single hotel rooms. Same 
+for Double Hotel rooms, they are double hotel rooms. But double rooms 
+bring in more income with less complaining. Single hotels take up 
+less space, therefore fitting more in a given amount of space, but 
+double rooms take up a larger yet smaller amount of space, and have 
+more "bang for their buck". Single Hotels are available in the two-
+Star rating, Double Hotels in the three-Star rating. These are both 
+adversely affected by noise from Offices, Restaurants, etc. and 
+simply will not put up with the noise. If you let the problem go on 
+too long, they will eventually pack up and boycott the rooms. Suites 
+are like Single Hotels, but much, much more luxurious, therefore more 
+expensive. But the Sims who stay in these Suites don't seem to mind. 
+If the transportation system is good, they like it. Also, VIPs who 
+come and stay in your tower only stay in Suites. (See more about VIPs 
+in section 7 – Dealing with VIPs.) All Hotels, Suites, included, 
+require some kind of transportation, in case you haven't already 
+guessed.
+	However, someone needs to clean up these dirty rooms after 
+people mess them up, and the perfect people to do so are the 
+Housekeeping staff. When you place a Housekeeping unit, you 
+automatically have six housekeeping people to tend to all of your 
+dirty Hotel rooms. They are crucial to your tower, because if you 
+leave your Hotel rooms dirty for more than three days, they become 
+infested with cockroaches, rendering the room useless and inhibiting 
+other people from staying in that room. Destroy cockroach-infested 
+rooms as quick as possible, because they spread horizontally to other 
+Hotel rooms, regardless if they're clean or not. 
+	Getting back to Housekeeping, you need at least one if you have 
+Hotel rooms in your tower. They also require transportation in the 
+form of Service Elevators, a special kind of elevator available from 
+the three-Star rating and on. You will know if you have enough or not 
+by looking at the Map window under Hotel at five or six o'clock in 
+the evening. If there are any dirty rooms, you clearly do not have 
+enough Housekeeping staff. One last comment on Housekeeping: once you 
+place a unit, you cannot bulldoze or get rid of it. Period.
+
+6 – SimTower's Method of Evaluation
+
+	One thing that I believe would be frustrating to new SimTower 
+players is the seemingly complicated method of evaluation the game 
+uses. I was building many different buildings and they were all 
+getting red (bad) evaluations. Why is this? I wondered. Well, I found 
+the answer from SimTower: The Official Strategy Guide from Prima 
+Publishing. Read on to find this out.
+	First of all, whenever you first build something, it has a Red 
+(bad) evaluation. Then, as the customers start coming there and 
+patronizing the place, its evaluation slowly increases. The highest 
+it can increase to is Business Is Very Good. This means that whoever 
+came to the store while there is a Good or Very Good evaluation will 
+be very pleased with the store. So pleased, in fact that the next 
+day, they will come back to that same store with a friend. If they 
+encounter no transportation problems, and get to the store while 
+there is a Good or Very Good evaluation, the same thing happens. For 
+instance, maybe you have just built a Men's Clothing shop. Its 
+current patronage is maybe three people, and it has a Red (bad) 
+evaluation. As people come and patronize the store, the evaluation 
+slowly builds up to Good, and the Very Good. The customers who 
+visited the shop when there was a Good or Very Good evaluation will 
+like the store so much, they will come back the next day and bring a 
+friend. So in other words, if you have a shop that is more than a few 
+days old and it still has constant Red (bad) evaluations, maybe you 
+should look into it more closely.
+	Offices are simpler. See, Sims hate to wait for anything. The 
+only thing in your tower that would make them wait is your elevator 
+system. Therefore, if an Office is suffering from a constant Red 
+(bad) evaluation, that means only one thing: poor transportation. 
+	One rectification for this major problem is to personally name 
+one Sim from the Office that is suffering. Follow that Sim around 
+throughout the entire workday, or workdays if you have to. If he/she 
+encounters any elevator that makes him/her wait, that could possibly 
+be the problem, so fix it. Another way that Sims get mad and suffer 
+from Red (bad) evaluations is that maybe a bunch of Sims from the 
+same Office encounter a ad elevator, making them wait. If a bunch of 
+Sims get mad and turn red, the evaluation of the Office that they're 
+all from goes down very quickly. All Offices that have Red (bad) 
+evaluations for en extended period of time eventually boycott their 
+Office and seek another Office elsewhere.
+
+7 – When VIPs Come For a Visit
+
+	When VIPs were coming for visits to my tower, more often than 
+not were they giving me bad evaluations. In case you do not know, you 
+must have gotten a good rating from the VIP who stays in your Hotel 
+Suites in order to graduate to a four-Star rating, then to five and 
+Tower. 
+	VIPs come to your Tower once every nine years, giving you 
+chances to make up for your mistakes of the past. Your job is to make 
+their stay in your tower as comfortable and leisurely as possible. 
+Listed below are some strategies to accomplishing this.
+
+1.	When the VIP arrives, quickly scan the parking garage and 
+all elevators to see where he is, he's a bright yellow Sim. 
+
+2.	Once you find him, pinpoint which elevator(s) he is going to 
+take.
+
+3.	After this, find out exactly which Hotel Suite he is going 
+to.
+
+4.	Once this is achieved, deactivate all elevator service to 
+all floors except the one where the Suite he is staying in 
+is located on. 
+
+5.	Make sure that every, single, picky, little thing in your 
+tower that he might use has a perfect transportation system.
+
+6.	Pray.
+
+Following these steps will almost guarantee you a successful
+VIP visit. At 11:00AM promptly the next morning, he will depart your 
+tower. A message box will pop up on the screen, the box deciding your 
+fate of whether you can graduate to a four-Star tower or not. 
+
+8 – Star Requirements
+
+	In order to achieve certain Star ratings, you must meet certain 
+criteria to graduate to higher ratings. Listed below are the six Star 
+ratings possible of achieving, and exactly what you need to get them.
+
+	One Star – none
+	
+Two Stars – A minimum population of 300 people 
+
+Three Stars – Minimum population of 1,000 people
+		  More than one Security office
+
+Four Stars – Minimum population of 5,000 people
+ Recycling Center
+		 Parking
+		 Medical Center near ground floor Lobby
+		 More than one Hotel Suite
+		 Favorable rating from a VIP
+
+Five Stars – Minimum population of 10,000 people
+		 Metro Station placed
+		 New Recycling and Medical demands met
+
+TOWER – Minimum population of 15,000 people
+	  Cathedral placed on 100th floor
+
+	There you have it, the complete criteria for graduating 
+to higher Star ratings.
+
+9 – And Of Course, Last But Certainly Not Least, Cheats
+
+	So ya wanna cheat, do ya? Just keep in mind that with cheating, 
+you are not playing the game to its fullest extent, therefore not 
+getting your moneys' worth out of the game. But if you're like me and 
+get the game's fullest amount of fun out of using cheat codes, this 
+section is for you, my friend! 
+
+NOTE: THERE ARE NO EASTER EGGS FOR SIMTOWER. NONE WHATSOEVER.
+
+	But there are a few cheats anyway. 
+
+1.	Start a new tower. Then click on the Lobby tool WITHOUT 
+clicking anywhere else in the screen. If you do, you must 
+start a new tower because clicking anywhere else than you're 
+supposed to deactivates this cheat.
+
+2.	Scroll the screen down so that it shows the very, very 
+bottom of the screen. Scroll all the way to the left. 
+
+3.	Click ONCE in the far bottom and left area. You should 
+double your starting funds from $2 million to $4 million.
+
+There, but I don't really consider this a cheat. I say a 
+cheat is a cheat when you can get infinite funds if you 
+want. But here is another that does not relate to money.
+
+1.	Start a new tower without a Lobby.
+
+2.	Click on the Lobby tool.
+
+3.	Build a new Lobby on the ground floor, but while doing 
+so, hold down Control while you click to get a two-
+story Lobby. 
+
+4.	Likewise, hole down Control and Shift to get a three-
+story Lobby.
+
+While this is not very healthy for your funds (it costs a
+lot), it also drastically reduces the amount of anger Sims go through 
+while waiting for an elevator in the ground floor Lobby. 
+
+
+	This concludes my SimTower FAQ (Frequently Asked Question). I 
+hope that you have enjoyed it to its fullest extent, and that it has 
+somewhat helped you to become a better SimTower architect. I had fun 
+typing this FAQ, and will probably type more to come. Look for other 
+FAQs from me in the future, I love strategy/simulation games like 
+SimCity 2000, Theme Hospital, SimFarm, and games like that. Farewell, 
+my friends. 
+
+
+
+

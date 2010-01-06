@@ -15,6 +15,7 @@ from pytower import Constants
 from pytower import Colors
 from pytower import Messages
 from pytower import Globals
+from pytower import Logic
 import pytower.QtUi as GUI
 import pytower.Render as Render
 
@@ -120,6 +121,7 @@ Render.stop_loading()
 
 frame_remains = Constants.FRAME_LENGTH
 paused = False
+cursor_object = None
 while True:
 
 	frame_start = time()
@@ -145,9 +147,9 @@ while True:
 				pos = ( int( event.pos[0] / Constants.SLICE_WIDTH ) * Constants.SLICE_WIDTH, int( event.pos[1] / Constants.FLOOR_HEIGHT ) * Constants.FLOOR_HEIGHT )
 				f = int( pos[1] / Constants.FLOOR_HEIGHT ) + Globals.v_offset
 				s = int( pos[0] / Constants.SLICE_WIDTH ) + Globals.h_offset
-				Globals.game_map[f][s] = 0
-				# TODO: Smaller refresh size
-				Render.move()
+				if "floor" == cursor_object:
+					if Logic.addFloorSlice( (f,s) ):
+						force_fu = True # TODO: Smaller update?
 
 		elif event.type == KEYUP:
 			if event.key == pygame.K_q:
@@ -176,6 +178,7 @@ while True:
 		elif Messages.PLAY == msg.instruction:
 			paused = False
 		elif Messages.SET_CURSOR == msg.instruction:
+			cursor_object = msg.object
 			Render.SetCursor( msg.cursor )
 	except Empty:
 		pass
