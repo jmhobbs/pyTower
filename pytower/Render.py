@@ -100,6 +100,8 @@ def SetCursor ( cursor ):
 	MoveCursor( pygame.mouse.get_pos() )
 
 def move ():
+	# Everything lays on top of sky
+	Globals.s_render.fill( Colors.SKY_BLUE )
 	for i in range( 0, Constants.WINDOW_FLOORS ):
 		slice_look_ahead = -1
 		for j in range( 0, Constants.WINDOW_SLICES ):
@@ -110,10 +112,7 @@ def move ():
 			s = Globals.h_offset + j
 			placement = ( j * Constants.SLICE_WIDTH, i * Constants.FLOOR_HEIGHT )
 			if Globals.game_map[f][s] == None:
-				# Nothing there. Draw dirt or sky.
-				if ( Constants.FLOORS - f ) > Constants.DIRT_FLOORS:
-					pygame.draw.rect( Globals.s_render, Colors.SKY_BLUE, ( placement[0], placement[1], Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
-				else:
+				if ( Constants.FLOORS - f ) <= Constants.DIRT_FLOORS:
 					# Dirt is a special case. We want to read ahead to use as much of our tile as we can
 					# TODO: Fix this thing.
 					#r = 1
