@@ -17,8 +17,13 @@ NOTIFY_POPULATION = 7 # Used to pass game population between processes Keys: pop
 MESSAGES = ( 'QUIT', 'NEW_GAME', 'PAUSE', 'PLAY', 'SET_CURSOR', 'NOTIFY_TIME', 'NOTIFY_CASH', 'NOTIFY_POPULATION' )
 
 class Message ():
-	def __init__ ( self, instruction ):
+	def __init__ ( self, instruction, attrs=None ):
 		self.instruction = instruction
+		try:
+			for key,value in attrs.items():
+				setattr( self, key, value )
+		except AttributeError:
+			pass
 
 	def __str__ ( self ):
 		s = "<pytower.Messages.Message> - " + MESSAGES[self.instruction] + " { "
