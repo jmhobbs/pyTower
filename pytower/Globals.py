@@ -7,6 +7,7 @@ if __name__ == "__main__":
 # It feels wrong, but I'm not a python guru and have no other fix...
 s_window = None
 dr_window = []
+s_render = None # This is the surface we render the game onto, then we blit over to the window surface
 
 f_loading = None
 s_loading = None

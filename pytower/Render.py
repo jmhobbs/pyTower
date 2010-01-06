@@ -18,6 +18,7 @@ def init ():
 	Globals.s_window = pygame.display.set_mode( ( Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT ) )
 	pygame.display.set_caption( 'pyTower - v' + Constants.VERSION  )
 	Globals.f_loading = pygame.font.SysFont( None, 48 )
+	Globals.s_render = pygame.Surface( ( Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT ) )
 
 def full_update ():
 	"""
@@ -86,11 +87,9 @@ def initialize_surfaces ():
 
 	SetCursor( None )
 
-	set_loading( 'Drawing map...' )
-
-	# TODO: Mini map...
-
 	set_loading( 'Reticulating splines...' )
+	pygame.time.delay( 750 )
+
 	move()
 
 def SetCursor ( cursor ):
@@ -98,6 +97,7 @@ def SetCursor ( cursor ):
 		Globals.s_cursor = pygame.Surface( ( 0, 0 ) )
 	else:
 		Globals.s_cursor = pygame.image.load( cursor ).convert()
+	MoveCursor( pygame.mouse.get_pos() )
 
 def move ():
 	for i in range( 0, Constants.WINDOW_FLOORS ):
@@ -112,7 +112,7 @@ def move ():
 			if Globals.game_map[f][s] == None:
 				# Nothing there. Draw dirt or sky.
 				if ( Constants.FLOORS - f ) > Constants.DIRT_FLOORS:
-					pygame.draw.rect( Globals.s_window, Colors.SKY_BLUE, ( placement[0], placement[1], Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
+					pygame.draw.rect( Globals.s_render, Colors.SKY_BLUE, ( placement[0], placement[1], Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
 				else:
 					# Dirt is a special case. We want to read ahead to use as much of our tile as we can
 					r = 1
@@ -123,12 +123,14 @@ def move ():
 						except:
 							break
 						r = r + 1
-					Globals.s_window.blit( Globals.res_dirt, placement, ( 0, 0, r * Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
+					Globals.s_render.blit( Globals.res_dirt, placement, ( 0, 0, r * Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
 					slice_look_ahead = j + r
 			elif Globals.game_map[f][s] == 0:
 				# Empty flooring
-				Globals.s_window.blit( Globals.res_floor, placement )
+				Globals.s_render.blit( Globals.res_floor, placement )
+	Globals.s_window.blit( Globals.s_render, ( 0, 0 ) )
 	full_update()
+	MoveCursor( pygame.mouse.get_pos() )
 
 def RedrawMiniMap ():
 	# TODO: Rework
@@ -138,9 +140,9 @@ def MoveCursor ( pos ):
 	# Snap to the grid
 	pos = ( int( pos[0] / Constants.SLICE_WIDTH ) * Constants.SLICE_WIDTH, int( pos[1] / Constants.FLOOR_HEIGHT ) * Constants.FLOOR_HEIGHT )
 	# 1 - Blit over previous cursor.
-	# TODO: Rework?
+	Globals.s_window.blit( Globals.s_render, Globals.r_cursor, Globals.r_cursor )
 	# 2 - Dirty that rectangle.
-	#Globals.dr_window.append( ( Globals.r_cursor[0], Globals.r_cursor[1], Globals.r_cursor[2], Globals.r_cursor[3] ) )
+	Globals.dr_window.append( ( Globals.r_cursor[0], Globals.r_cursor[1], Globals.r_cursor[2], Globals.r_cursor[3] ) )
 	# 3 - Blit in the new cursor.
 	Globals.s_window.blit( Globals.s_cursor, pos )
 	# 4 - Dirty that rectangle.
