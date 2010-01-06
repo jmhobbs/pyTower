@@ -101,10 +101,10 @@ def SetCursor ( cursor ):
 
 def move ():
 	for i in range( 0, Constants.WINDOW_FLOORS ):
-		slice_look_ahead = 0
+		slice_look_ahead = -1
 		for j in range( 0, Constants.WINDOW_SLICES ):
 			# slice_look_ahead is used to skip over already rendered things
-			if j < slice_look_ahead:
+			if j <= slice_look_ahead:
 				continue
 			f = Globals.v_offset + i
 			s = Globals.h_offset + j
@@ -115,16 +115,18 @@ def move ():
 					pygame.draw.rect( Globals.s_render, Colors.SKY_BLUE, ( placement[0], placement[1], Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
 				else:
 					# Dirt is a special case. We want to read ahead to use as much of our tile as we can
-					r = 1
-					for q in range( 0, 3 ):
-						try:
-							if Globals.game_map[f][s+q] != None:
-								break
-						except:
-							break
-						r = r + 1
-					Globals.s_render.blit( Globals.res_dirt, placement, ( 0, 0, r * Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
-					slice_look_ahead = j + r
+					# TODO: Fix this thing.
+					#r = 1
+					#for q in range( 1, 4 ):
+						#try:
+							#if Globals.game_map[f][s+q] == None:
+								#r = r + 1
+								#break
+						#except:
+							#break
+					#Globals.s_render.blit( Globals.res_dirt, placement, ( 0, 0, r * Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
+					#slice_look_ahead = j + r - 1
+					Globals.s_render.blit( Globals.res_dirt, placement, ( 0, 0, Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
 			elif Globals.game_map[f][s] == 0:
 				# Empty flooring
 				Globals.s_render.blit( Globals.res_floor, placement )

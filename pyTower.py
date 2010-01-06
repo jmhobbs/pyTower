@@ -139,8 +139,15 @@ while True:
 		elif event.type == MOUSEMOTION:
 			Render.MoveCursor( event.pos )
 
-		#elif event.type == MOUSEBUTTONUP:
-			#if event.button == 1:
+		elif event.type == MOUSEBUTTONUP:
+			if event.button == 1:
+				# Snap to grid
+				pos = ( int( event.pos[0] / Constants.SLICE_WIDTH ) * Constants.SLICE_WIDTH, int( event.pos[1] / Constants.FLOOR_HEIGHT ) * Constants.FLOOR_HEIGHT )
+				f = int( pos[1] / Constants.FLOOR_HEIGHT ) + Globals.v_offset
+				s = int( pos[0] / Constants.SLICE_WIDTH ) + Globals.h_offset
+				Globals.game_map[f][s] = 0
+				# TODO: Smaller refresh size
+				Render.move()
 
 		elif event.type == KEYUP:
 			if event.key == pygame.K_q:
