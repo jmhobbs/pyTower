@@ -12,8 +12,6 @@ f_loading = None
 s_loading = None
 r_loading = None
 
-s_full = None
-
 s_mini = None
 
 h_offset = 0 # How many slices we are from the left

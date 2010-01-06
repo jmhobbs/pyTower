@@ -10,6 +10,32 @@ import Constants
 import Messages
 import locale
 
+# From: http://www.mail-archive.com/pyqt@riverbankcomputing.com/msg00462.html
+# Thanks to Christian Bird
+# this creates a class that allows currying of functions
+class CURRY:
+	#keep a reference to all curried instances·
+	#or they are immediately garbage collected
+	instances = []
+	def __init__(self, func, *args, **kwargs):
+		self.func = func
+		self.pending = args[:]
+		self.kwargs = kwargs.copy()
+		self.instances.append(self)
+
+	def __call__(self, *args, **kwargs):
+		kw = self.kwargs
+		kw.update(kwargs)
+		funcArgs = self.pending + args
+		#sometimes we want to limit the number of arguments that get passed,
+		#calling the constructor with the option __max_args__ = n will limit
+		#the function call args to the first n items
+		maxArgs = kw.get("__max_args__", -1)
+		if maxArgs != -1:
+				funcArgs = funcArgs[:maxArgs]
+				del kw["__max_args__"]
+		return self.func(*funcArgs, **kw)
+
 def about ( obj ):
 	QtGui.QMessageBox.about( obj, "pyTower - About", "pyTower " + Constants.VERSION + "\n\nCopyright 2010, John Hobbs\nhttp://github.com/jmhobbs/pyTower" )
 
@@ -107,9 +133,12 @@ class in_game_menu ( MenuDialog ):
 
 		cursor_button = QtGui.QPushButton( QtGui.QIcon( 'resources/in_game_menu/cursor.png' ), '' )
 		QtCore.QObject.connect( cursor_button, QtCore.SIGNAL( "clicked()" ), self.set_cursor )
+		hbox.addWidget( cursor_button )
+		cursor_button = QtGui.QPushButton( QtGui.QIcon( 'resources/floor.bmp' ), '' )
+		QtCore.QObject.connect( cursor_button, QtCore.SIGNAL( "clicked()" ), CURRY( self.set_cursor, 'resources/floor.bmp' ) )
+		hbox.addWidget( cursor_button )
 		self.pause_button = QtGui.QPushButton( QtGui.QIcon( 'resources/in_game_menu/pause.png' ), '' )
 		QtCore.QObject.connect( self.pause_button, QtCore.SIGNAL( "clicked()" ), self.play_pause )
-		hbox.addWidget( cursor_button )
 		hbox.addWidget( self.pause_button )
 
 		self.paused = False
@@ -135,9 +164,9 @@ class in_game_menu ( MenuDialog ):
 		except Empty:
 			return
 
-	def set_cursor ( self ):
+	def set_cursor ( self, cursor=None ):
 		m = Messages.Message( Messages.SET_CURSOR )
-		m.cursor = None
+		m.cursor = cursor
 		self.send_message( m )
 
 	def play_pause ( self ):

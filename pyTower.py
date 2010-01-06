@@ -15,7 +15,6 @@ from pytower import Constants
 from pytower import Colors
 from pytower import Messages
 from pytower import Globals
-import pytower.minimap as MiniMap
 import pytower.QtUi as GUI
 import pytower.Render as Render
 

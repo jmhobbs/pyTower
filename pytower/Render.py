@@ -96,6 +96,8 @@ def initialize_surfaces ():
 def SetCursor ( cursor ):
 	if None == cursor:
 		Globals.s_cursor = pygame.Surface( ( 0, 0 ) )
+	else:
+		Globals.s_cursor = pygame.image.load( cursor ).convert()
 
 def move ():
 	for i in range( 0, Constants.WINDOW_FLOORS ):
