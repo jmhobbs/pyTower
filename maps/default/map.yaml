@@ -1,0 +1,51 @@
+map:
+  name: Default
+  version: '0.1'
+  author:
+    name: John Hobbs
+    link: 'http://www.velvetcache.org/'
+  dimensions:
+    floors: 110
+    slices: 200
+    dirtfloors: 10
+  offsets:
+    dawn_1:
+      dir: 'transition_4'
+      hour: 4
+      minute: 0
+    dawn_2:
+      dir: 'transition_3'
+      hour: 5
+      minute: 0
+    dawn_3:
+      dir: 'transition_2'
+      hour: 6
+      minute: 0
+    dawn_4:
+      dir: 'transition_1'
+      hour: 7
+      minute: 0
+    day:
+      dir: 'day'
+      hour: 8
+      minute: 0
+    dusk_1:
+      dir: 'transition_1'
+      hour: 5
+      minute: 0
+    dusk_2:
+      dir: 'transition_2'
+      hour: 6
+      minute: 0
+    dusk_3:
+      dir: 'transition_3'
+      hour: 7
+      minute: 0
+    dusk_4:
+      dir: 'transition_4'
+      hour: 8
+      minute: 0
+    night:
+      dir: 'night'
+      hour: 9
+      minute: 0

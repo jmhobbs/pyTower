@@ -1,10 +1,9 @@
 # Dimensions #
+
 ## Floor Height ##
-A single floor is 40 high total. This breaks down to 10px of "flooring" and 30px of sprite area.
+A single floor is 40px high total. This breaks down to 10px of "flooring" and 30px of sprite area.
 ## Floor Width ##
-All objects must be in increments of 10px wide. A single hotel room is 30px wide.
-## Playable Area ##
-Playable area is ~2500x4400.  This is 150 stories, and 100 single hotel rooms wide.
+All objects must be in increments of 10px wide, this is called a "slice". A single hotel room is 30px wide.
 
 # Objects #
 Objects are flexible and described in YAML, classed as follows:

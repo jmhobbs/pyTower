@@ -6,9 +6,9 @@ object:
     name: John Hobbs
     link: 'http://www.velvetcache.org/'
   dimensions:
-    width: 9
+    width: 7
     height: 1
-  cost: 10000
+  cost: 40000
   stars: 0
   population:
     maximum: 10
@@ -20,6 +20,3 @@ object:
     empty:
       h_offset: 0
       v_offset: 0
-    leased:
-      h_offset: 0
-      v_offset: 40

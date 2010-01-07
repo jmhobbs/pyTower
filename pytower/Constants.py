@@ -7,7 +7,7 @@ if __name__ == "__main__":
 VERSION = '0.1'
 
 # DONT CHANGE THESE
-FLOOR_HEIGHT = 40
+FLOOR_HEIGHT = 30
 SLICE_WIDTH = 10
 
 # You can change these for more play space.
