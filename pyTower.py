@@ -68,6 +68,17 @@ Globals.game_map = [None] * Constants.FLOORS
 for i in range( Constants.FLOORS ):
 	Globals.game_map[i] = [None] * ( Constants.SLICES )
 
+Render.set_loading( 'Loading Maps' )
+
+for root, dirs, files in walk( 'maps/' ):
+	for file in files:
+		if file == 'map.yaml':
+			f = open( root + '/' + file )
+			dm = yaml.load( f )
+			f.close()
+			Globals.maps.append( dm )
+			print dm['map']['name']
+
 Render.set_loading( 'Loading Objects' )
 
 for root, dirs, files in walk( 'objects/' ):
@@ -85,6 +96,9 @@ Render.set_loading( 'Spawning Menu' )
 
 Globals.q_tx = Queue()
 Globals.q_rx = Queue()
+
+Globals.q_tx.put_nowait( Messages.Message( Messages.MAPS, { 'maps': Globals.maps } ) )
+
 ui = Process( target=GUI.show_main_menu, args=( Globals.q_tx, Globals.q_rx ) )
 ui.start()
 

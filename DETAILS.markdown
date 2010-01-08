@@ -5,6 +5,19 @@ A single floor is 40px high total. This breaks down to 10px of "flooring" and 30
 ## Floor Width ##
 All objects must be in increments of 10px wide, this is called a "slice". A single hotel room is 30px wide.
 
+# Rendering #
+Maps are done in tile/strips. One strip per floor.
+
+http://wiki.gamedev.net/index.php/Scrolling_Games#Procedural_Backgrounds
+
+## Move##
+When the frame of reference moves, we check if we have the tiles we need loaded, then load, then blit.
+Next we blit in the flooring.
+Last we blit in the objects.
+
+## No Move ##
+We just blit in the changes from the objects.
+
 # Objects #
 Objects are flexible and described in YAML, classed as follows:
 
