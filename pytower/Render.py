@@ -5,86 +5,61 @@ if __name__ == "__main__":
 	exit()
 
 import pygame
+from Constants.locals import *
 
-import Constants
-import Colors
-import Globals
+class Render ():
+	def __init__ ( self ):
+		pygame.display.set_icon( pygame.image.load( 'resources/icon.16x16.png' ) )
+		self.window = pygame.display.set_mode( ( WINDOW_WIDTH, WINDOW_HEIGHT ) )
+		pygame.display.set_caption( 'pyTower - v' + VERSION  )
 
-def init ():
-	"""
-	Set up the pygame working area.
-	"""
-	pygame.display.set_icon( pygame.image.load( 'resources/icon.16x16.png' ) )
-	Globals.s_window = pygame.display.set_mode( ( Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT ) )
-	pygame.display.set_caption( 'pyTower - v' + Constants.VERSION  )
-	Globals.f_loading = pygame.font.SysFont( None, 48 )
-	Globals.s_render = pygame.Surface( ( Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT ) )
+		self.loadingFont = pygame.font.SysFont( None, 48 )
+		self.loadingRect = None
 
-	for i in range( 0, Constants.WINDOW_FLOORS ):
-		Globals.s_window_slices.append( None )
+		self.context = pygame.Surface( ( WINDOW_WIDTH, WINDOW_HEIGHT ) )
+		self.windowDirtyRectangles = []
+		self.floorSurface = pygame.image.load( 'resources/floor.bmp' ).convert()
 
-def full_update ():
-	"""
-	Update the whole window surface. Usefull for moves or expose events.
-	"""
-	pygame.display.update()
-	Globals.dr_window = []
+	def update ():
+		if list == type( self.windowDirtyRectangles ):
+			pygame.display.update( self.windowDirtyRectangles )
+		self.windowDirtyRectangles = []
 
-def dirty_update ():
-	"""
-	Only update the rectangles that are dirty.
-	"""
-	if list == type( Globals.dr_window ):
-		pygame.display.update( Globals.dr_window )
-	Globals.dr_window = []
+	def init_loading ():
+		"""
+		Initialize the loading screen.
+		"""
+		self.context = pygame.image.load( 'resources/loading.bmp' ).convert()
+		self.window.blit( self.context, ( 0, 0 ) )
+		self.loadingRect = None
 
-def load_resources ():
-	"""
-	Load up any re-usable resources we might need.
-	"""
-	Globals.res_floor = pygame.image.load( 'resources/floor.bmp' ).convert()
-	Globals.res_dirt = pygame.image.load( 'resources/dirt.bmp' ).convert()
-
-def start_loading ():
-	"""
-	Initialize the loading screen.
-	"""
-	Globals.s_loading = pygame.image.load( 'resources/loading.bmp' ).convert()
-	Globals.s_window.blit( Globals.s_loading, ( 0, 0 ) )
-	Globals.r_loading = None
-	full_update()
+		self.windowDirtyRectangles.append( ( 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT ) )
+		self.update()
 
 def set_loading ( text ):
 	"""
 	Set the text on the loading screen.
 	"""
-	if None != Globals.r_loading:
-		Globals.s_window.blit( Globals.s_loading, Globals.r_loading, Globals.r_loading )
-		Globals.dr_window.append( Globals.r_loading )
+	if None != self.loadingRect:
+		self.window.blit( self.context, self.loadingRect, self.loadingRect )
+		self.windowDirtyRectangles.append( self.loadingRect )
 
-	text = Globals.f_loading.render( text , True, Colors.BLACK )
+	text = self.loadingFont.render( text , True, Colors.BLACK )
 
-	Globals.r_loading = text.get_rect()
-	Globals.r_loading.centerx = Globals.s_window.get_rect().centerx
-	Globals.r_loading.centery = Globals.s_window.get_rect().centery
+	self.loadingRect = text.get_rect()
+	self.loadingRect.centerx = self.window.get_rect().centerx
+	self.loadingRect.centery = self.window.get_rect().centery
 
-	Globals.s_window.blit( text, Globals.r_loading )
-	Globals.dr_window.append( Globals.r_loading )
+	self.window.blit( text, self.loadingRect )
+	self.windowDirtyRectangles.append( self.loadingRect )
 
-	dirty_update()
-
-def stop_loading ():
-	"""
-	Clean up the loading screen.
-	"""
-	del Globals.s_loading
-	Globals.s_loading = None
+	self.update()
 
 def initialize_surfaces ():
 	set_loading( 'Finding offsets...' )
 
-	Globals.h_offset = Constants.CENTER
-	Globals.v_offset = Constants.BOTTOM
+	Globals.h_offset = CENTER
+	Globals.v_offset = BOTTOM
 
 	set_loading( 'Building surfaces...' )
 
@@ -104,23 +79,23 @@ def SetCursor ( cursor ):
 
 def move ():
 	# Check & load slices
-	for i in range( 1, Constants.WINDOW_FLOORS ):
-		Globals.s_window_slices[i-1] = pygame.image.load( 'maps/default/day/%d.jpg' % ( i ) ).convert()
-		Globals.s_render.blit( Globals.s_window_slices[i-1], ( 0, Constants.WINDOW_HEIGHT - ( i * Constants.FLOOR_HEIGHT ) ) ) # TODO: Offset from the slice to match window!
+	for i in range( 1, WINDOW_FLOORS ):
+		self.window_slices[i-1] = pygame.image.load( 'maps/default/day/%d.jpg' % ( i ) ).convert()
+		Globals.s_render.blit( self.window_slices[i-1], ( 0, WINDOW_HEIGHT - ( i * FLOOR_HEIGHT ) ) ) # TODO: Offset from the slice to match window!
 	# Load flooring
 	# Load objects
-	#for i in range( 0, Constants.WINDOW_FLOORS ):
+	#for i in range( 0, WINDOW_FLOORS ):
 		#slice_look_ahead = 0
-		#for j in range( 0, Constants.WINDOW_SLICES ):
+		#for j in range( 0, WINDOW_SLICES ):
 			## slice_look_ahead is used to skip over already rendered things
 			#if 0 < slice_look_ahead:
 				#slice_look_ahead = slice_look_ahead - 1
 				#continue
 			#f = Globals.v_offset + i
 			#s = Globals.h_offset + j
-			#placement = ( j * Constants.SLICE_WIDTH, i * Constants.FLOOR_HEIGHT )
+			#placement = ( j * SLICE_WIDTH, i * FLOOR_HEIGHT )
 			#if Globals.game_map[f][s] == None:
-				#if ( Constants.FLOORS - f ) <= Constants.DIRT_FLOORS:
+				#if ( FLOORS - f ) <= DIRT_FLOORS:
 					## Dirt is a special case. We want to read ahead to use as much of our tile as we can
 					#r = 1
 					#for q in range( 1, 4 ):
@@ -131,12 +106,12 @@ def move ():
 								#break
 						#except:
 							#break
-					#Globals.s_render.blit( Globals.res_dirt, placement, ( 0, 0, r * Constants.SLICE_WIDTH, Constants.FLOOR_HEIGHT ) )
+					#Globals.s_render.blit( Globals.res_dirt, placement, ( 0, 0, r * SLICE_WIDTH, FLOOR_HEIGHT ) )
 					#slice_look_ahead = r - 1
 			#elif Globals.game_map[f][s] == 0:
 				## Empty flooring
 				#Globals.s_render.blit( Globals.res_floor, placement )
-	Globals.s_window.blit( Globals.s_render, ( 0, 0 ) )
+	self.window.blit( Globals.s_render, ( 0, 0 ) )
 	full_update()
 	MoveCursor( pygame.mouse.get_pos() )
 
@@ -146,13 +121,13 @@ def RedrawMiniMap ():
 
 def MoveCursor ( pos ):
 	# Snap to the grid
-	pos = ( int( pos[0] / Constants.SLICE_WIDTH ) * Constants.SLICE_WIDTH, int( pos[1] / Constants.FLOOR_HEIGHT ) * Constants.FLOOR_HEIGHT )
+	pos = ( int( pos[0] / SLICE_WIDTH ) * SLICE_WIDTH, int( pos[1] / FLOOR_HEIGHT ) * FLOOR_HEIGHT )
 	# 1 - Blit over previous cursor.
-	Globals.s_window.blit( Globals.s_render, Globals.r_cursor, Globals.r_cursor )
+	self.window.blit( Globals.s_render, Globals.r_cursor, Globals.r_cursor )
 	# 2 - Dirty that rectangle.
 	Globals.dr_window.append( ( Globals.r_cursor[0], Globals.r_cursor[1], Globals.r_cursor[2], Globals.r_cursor[3] ) )
 	# 3 - Blit in the new cursor.
-	Globals.s_window.blit( Globals.s_cursor, pos )
+	self.window.blit( Globals.s_cursor, pos )
 	# 4 - Dirty that rectangle.
 	Globals.dr_window.append( ( pos[0], pos[1], Globals.s_cursor.get_rect().width, Globals.s_cursor.get_rect().height ) )
 	# 5 - Save that cursor.
