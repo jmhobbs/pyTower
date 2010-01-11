@@ -73,6 +73,7 @@ Render.set_loading( 'Loading Maps' )
 for root, dirs, files in walk( 'maps/' ):
 	for file in files:
 		if file == 'map.yaml':
+			import_path = root.replace( '/', '.' ) + '.map'
 			f = open( root + '/' + file )
 			dm = yaml.load( f )
 			f.close()

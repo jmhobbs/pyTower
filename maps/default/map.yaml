@@ -1,6 +1,7 @@
 map:
   name: Default
   version: '0.1'
+  revision: '0.1'
   author:
     name: John Hobbs
     link: 'http://www.velvetcache.org/'
