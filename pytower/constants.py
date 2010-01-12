@@ -32,6 +32,8 @@ MONTHS_PER = 12
 
 VERSION = '0.1'
 
+BLACK = ( 0, 0, 0 )
+
 # Rendering constants, translate stuff into pixels.
 FLOOR_HEIGHT = 30
 OBJECT_HEIGHT = 20

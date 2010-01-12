@@ -28,7 +28,7 @@ class Map ():
 		self.script = __import__( self.import_path, None, None, [''] )
 		# TODO: Check what is callable so we can proxy.
 
-	def get_tile_path ( self, clock ):
-		rval = self.backgrounds[0]
-		cdiff = 0
-		for background in self.backgrounds:
+	#def get_tile_path ( self, clock ):
+		#rval = self.backgrounds[0]
+		#cdiff = 0
+		#for background in self.backgrounds:

@@ -68,7 +68,7 @@ class Window ():
 			self.window.blit( self.background, self.loadingRect, self.loadingRect )
 			self.windowDirtyRectangles.append( self.loadingRect )
 
-		text = self.loadingFont.render( text , True, Colors.BLACK )
+		text = self.loadingFont.render( text , True, BLACK )
 
 		self.loadingRect = text.get_rect()
 		self.loadingRect.centerx = self.window.get_rect().centerx

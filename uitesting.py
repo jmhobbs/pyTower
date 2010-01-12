@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from pytower.menu import Menus
-from multiprocessing import Process, Queue
+from pytower.menus import Menus
+from multiprocessing import Queue
 
 sq = Queue()
 rq = Queue()
 
-menus = Menus( 'qt' )
-
-p = Process( target=menus.in_game_menu, args=( sq, rq ) )
-p.start()
-p.join()
+menus = Menus( 'qt', sq, rq )
+menus.main_menu()
+menus.in_game_menu()
+menus.join()
 
 try:
 	while True:
