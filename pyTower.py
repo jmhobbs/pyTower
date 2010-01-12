@@ -11,11 +11,8 @@ from Queue import Empty
 
 from time import time
 
-from pytower import Constants
-from pytower import Colors
-from pytower import Messages
-from pytower import Globals
-from pytower import Logic
+from pytower.constants.locals import *
+from pytower import messages
 import pytower.QtUi as GUI
 import pytower.Render as Render
 
