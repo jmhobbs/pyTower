@@ -5,7 +5,7 @@ if __name__ == "__main__":
 	exit()
 
 import pygame
-from constants.locals import *
+from constants import *
 from utility import FullPath
 
 class Window ():
@@ -29,9 +29,12 @@ class Window ():
 		# self.background is the tiles + flooring + static odds and ends
 		self.background = pygame.Surface( ( WINDOW_WIDTH, WINDOW_HEIGHT ) )
 
+		# These are the storage for the background tiles to be loaded into
+		self.tiles = [None] * WINDOW_FLOORS
+
 		# These are commonly used resources
 		self.resource = {}
-		self.resource['floor'] = pygame.image.load( 'resources/floor.bmp' ).convert()
+		self.resource['floor'] = pygame.image.load( FullPath( 'resources/floor.bmp' ) ).convert()
 
 		# This is the current cursor graphic
 		self.cursor = pygame.Surface( ( 0, 0 ) )
@@ -109,5 +112,5 @@ class Window ():
 
 	def update_background ( self ):
 		for i in range( 1, WINDOW_FLOORS ):
-			self.window_slices[i-1] = pygame.image.load( 'maps/default/day/%d.jpg' % ( i ) ).convert()
-			Globals.s_render.blit( self.window_slice
+			self.window_slices[i-1] = pygame.image.load( FullPath( 'maps/default/day/%d.jpg' ) % ( i ) ).convert()
+			self.background.blit( self.tiles )

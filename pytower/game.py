@@ -28,3 +28,21 @@ class Game ():
 		TODO
 		"""
 		print "Stub!"
+
+	def clock_tick ( self ):
+		"""
+		Increment the game clock by one tick (5 game time minutes)
+		"""
+		self.clock[4] = self.clock[4] + 5
+		if self.clock[4] >= 60:
+			self.clock[4] = 0
+			self.clock[3] = self.clock[3] + 1
+			if self.clock[3] > 24:
+				self.clock[3] = 1
+				self.clock[2] = self.clock[2] + 1
+				if self.clock[2] > 6:
+					self.clock[2] = 1
+					self.clock[1] = self.clock[1] + 1
+					if self.clock[1] > 12:
+						self.clock[1] = 1
+						self.clock[0] = self.clock[0] + 1
