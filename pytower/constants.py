@@ -7,8 +7,6 @@ if __name__ == "__main__":
 # This is just visible area, you can change it
 WINDOW_FLOORS = 20
 WINDOW_SLICES = 80
-WINDOW_HEIGHT = WINDOW_FLOORS * FLOOR_HEIGHT
-WINDOW_WIDTH = WINDOW_SLICES * SLICE_WIDTH
 
 # This is the constant sleep between inter process queue checks. Mostly used in GUI
 IPQUEUE_SLEEP = 100
@@ -40,6 +38,8 @@ OBJECT_HEIGHT = 20
 SLICE_WIDTH = 10
 
 # Calculate useful constants based on map size
+WINDOW_HEIGHT = WINDOW_FLOORS * FLOOR_HEIGHT
+WINDOW_WIDTH = WINDOW_SLICES * SLICE_WIDTH
 # TODO: Restore these
 #CENTER = int( ( SLICES - WINDOW_SLICES ) / 2)
 #BOTTOM = FLOORS - WINDOW_FLOORS - int( DIRT_FLOORS / 2 )

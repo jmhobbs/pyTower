@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import pytower.QtUi as pytower_ui
+from pytower.menu import Menus
 from multiprocessing import Process, Queue
 
 sq = Queue()
 rq = Queue()
 
-p = Process( target=pytower_ui.show_main_menu, args=( sq, rq ) )
+menus = Menus( 'qt' )
+
+p = Process( target=menus.in_game_menu, args=( sq, rq ) )
 p.start()
 p.join()
 
