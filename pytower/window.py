@@ -110,7 +110,8 @@ class Window ():
 		# 5 - Save that cursor.
 		self.cursorRect = ( pos[0], pos[1], self.cursor.get_rect().width, self.cursor.get_rect().height )
 
-	def update_background ( self ):
+	def update_tiles ( self, path, offset ):
 		for i in range( 1, WINDOW_FLOORS ):
-			self.window_slices[i-1] = pygame.image.load( FullPath( 'maps/default/day/%d.jpg' ) % ( i ) ).convert()
+			self.window_slices[i-1] = pygame.image.load( FullPath( 'maps/default/day/%d.jpg' ) % ( i + offset ) ).convert()
 			self.background.blit( self.tiles )
+		# TODO: Re-blit the flooring and the context

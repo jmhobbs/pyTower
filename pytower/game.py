@@ -4,7 +4,7 @@ if __name__ == "__main__":
 	print "Sorry, you can't run this stand-alone."
 	exit()
 
-import
+from constants import *
 
 class Game ():
 	def __init__ ( self ):
@@ -13,7 +13,9 @@ class Game ():
 		"""
 		self.map = None
 		self.cash = None
-		self.clock = None
+		self.set_clock()
+		self.population = None
+		self.peak_population = None
 
 	def load_from_file ( self, path ):
 		"""
@@ -24,25 +26,40 @@ class Game ():
 
 	def new_from_map ( self, map ):
 		"""
-		Will eventually start a new game from a Map object.
-		TODO
+		Start a new game from a Map object.
 		"""
-		print "Stub!"
+		# Here's how this works.  The top left slice of the object goes in that index slot.
+		# All the other ones it overlaps get a # that references that slot. None means empty.
+		# "0" means floor there, but otherwise empty.
+		self.map = map
+		self.contents = [None] * map.floors
+		for i in range( map.floors ):
+			self.contents[i] = [None] * ( map.slices )
+
+	def set_clock ( self, year=0, month=0, day=0, hour=0, minute=0 ):
+		self.clock = {'year': year, 'month': month, 'day': day, 'hour': hour, 'minute': minute}
+		self.adjust_clock()
 
 	def clock_tick ( self ):
 		"""
-		Increment the game clock by one tick (5 game time minutes)
+		Increment the game clock by one tick.
 		"""
-		self.clock[4] = self.clock[4] + 5
-		if self.clock[4] >= 60:
-			self.clock[4] = 0
-			self.clock[3] = self.clock[3] + 1
-			if self.clock[3] > 24:
-				self.clock[3] = 1
-				self.clock[2] = self.clock[2] + 1
-				if self.clock[2] > 6:
-					self.clock[2] = 1
-					self.clock[1] = self.clock[1] + 1
-					if self.clock[1] > 12:
-						self.clock[1] = 1
-						self.clock[0] = self.clock[0] + 1
+		self.clock['minute'] = self.clock['minute'] + TICK_MINUTES
+		self.adjust_clock()
+
+	def adjust_clock ( self ):
+		"""
+		Adjusts the clock to a valid state by pushing numbers up the chain.
+		"""
+		if self.clock['minute'] >= MINUTES_PER:
+			self.clock['minute'] = 0
+			self.clock['hour'] = self.clock['hour'] + 1
+			if self.clock['hour'] > HOURS_PER:
+				self.clock['hour'] = 1
+				self.clock['day'] = self.clock['day'] + 1
+				if self.clock['day'] > DAYS_PER:
+					self.clock['day'] = 1
+					self.clock['month'] = self.clock['month'] + 1
+					if self.clock['month'] > MONTHS_PER:
+						self.clock['month'] = 1
+						self.clock['year'] = self.clock['year'] + 1

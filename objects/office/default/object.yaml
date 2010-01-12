@@ -1,21 +1,15 @@
 object:
-  class: office
+  type: office
   name: Office
   version: '0.1'
   author:
     name: John Hobbs
     link: 'http://www.velvetcache.org/'
   dimensions:
-    width: 7
-    height: 1
+    slices: 7
+    floors: 1
   cost: 40000
   stars: 0
-  population:
-    maximum: 10
-    minimum: 0
-  hours:
-    open: 8
-    duration: 8
   sprites:
     empty:
       h_offset: 0

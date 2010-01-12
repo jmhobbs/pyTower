@@ -3,7 +3,7 @@
 import pygame
 
 import yaml
-from os import walk
+import os.walk
 
 from multiprocessing import Process, Queue
 from Queue import Empty
@@ -14,6 +14,9 @@ from pytower.constants import *
 from pytower import messages
 #import pytower.QtUi as GUI
 from pytower.window import Window
+from pytower.game import Game
+from pytower.object import Object
+from pytower.map import Map
 
 #def quit():
 	#if None != ui:
@@ -36,43 +39,33 @@ pygame.init()
 
 window = Window()
 
-pygame.time.delay( 5000 )
+window.start_loading()
+window.set_loading( 'Loading Maps' )
 
-#Render.start_loading()
-#Render.set_loading( 'Building Internal Map' )
+maps = []
 
-## Build game object mapping.
-#"""
-#Here's how this works.  The top left slice of the object goes in that index slot.
-#All the other ones it overlaps get a # that references that slot. None means empty.
-#"0" means floor there, but otherwise empty.
-#"""
-#Globals.game_map = [None] * Constants.FLOORS
-#for i in range( Constants.FLOORS ):
-	#Globals.game_map[i] = [None] * ( Constants.SLICES )
+for root, dirs, files in os.walk( 'maps/' ):
+	for file in files:
+		if file == 'map.yaml':
+			import_path = root.replace( '/', '.' ) + '.map'
+			f = open( root + '/' + file )
+			map_yaml = yaml.load( f )
+			f.close()
+			# TODO: Version checking
+			maps.append( Map( map_yaml, import_path ) )
 
-#Render.set_loading( 'Loading Maps' )
+window.set_loading( 'Loading Objects' )
 
-#for root, dirs, files in walk( 'maps/' ):
-	#for file in files:
-		#if file == 'map.yaml':
-			#import_path = root.replace( '/', '.' ) + '.map'
-			#f = open( root + '/' + file )
-			#dm = yaml.load( f )
-			#f.close()
-			#Globals.maps.append( dm )
-			#print dm['map']['name']
-
-#Render.set_loading( 'Loading Objects' )
-
-#for root, dirs, files in walk( 'objects/' ):
-	#for file in files:
-		#if file == 'object.yaml':
-			#f = open( root + '/' + file )
-			#dm = yaml.load( f )
-			#f.close()
-			#Globals.objects[0].append( dm )
-			#print dm['object']['name']
+objects = []
+for root, dirs, files in os.walk( 'objects/' ):
+	for file in files:
+		if file == 'object.yaml':
+			import_path = root.replace( '/', '.' ) + '.map'
+			f = open( root + '/' + file )
+			object_yaml = yaml.load( f )
+			f.close()
+			# TODO: Version checking
+			objects.append( Object( object_yaml, import_path ) )
 
 #Render.load_resources()
 

@@ -1,3 +1,9 @@
+# Nomenclature #
+
+* SLICE - A 10px wide section. The basic unit of width.
+* FLOOR - A 30px hight section. The basic unit of height.
+* TILE - A background tile one FLOOR high and the full map width.
+
 # Dimensions #
 
 ## Floor Height ##
@@ -10,7 +16,7 @@ Maps are done in tile/strips. One strip per floor.
 
 http://wiki.gamedev.net/index.php/Scrolling_Games#Procedural_Backgrounds
 
-## Move##
+## Move ##
 When the frame of reference moves, we check if we have the tiles we need loaded, then load, then blit.
 Next we blit in the flooring.
 Last we blit in the objects.

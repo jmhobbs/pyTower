@@ -9,7 +9,7 @@ map:
     floors: 110
     slices: 200
     dirtfloors: 10
-  offsets:
+  backgrounds:
     dawn_1:
       dir: 'transition_4'
       hour: 4
