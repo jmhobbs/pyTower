@@ -18,6 +18,7 @@ from pytower.game import Game
 from pytower.object import Object
 from pytower.map import Map
 from pytower.utility import FullPath
+from pytower import logic
 
 def quit():
 	if None != menus:
@@ -134,6 +135,16 @@ while True:
 		elif event.type == pygame.MOUSEMOTION:
 			window.move_cursor( event.pos )
 
+		#elif event.type == pygame.MOUSEBUTTONUP:
+			#if event.button == 1:
+				## Snap to grid
+				#pos = ( int( event.pos[0] / SLICE_WIDTH ) * SLICE_WIDTH, int( event.pos[1] / FLOOR_HEIGHT ) * FLOOR_HEIGHT )
+				#floor = int( pos[1] / FLOOR_HEIGHT ) + window.floor_offset
+				#slice = int( pos[0] / SLICE_WIDTH ) + window.slice_offset
+				#if "floor" == cursor_object:
+					#if logic.addFloorSlice( pos, game ):
+						#window.refresh( floor, slice, game )
+
 		elif event.type == pygame.KEYUP:
 			if event.key == pygame.K_DOWN:
 				floor_offset = floor_offset + 1
@@ -155,7 +166,7 @@ while True:
 		elif messages.PLAY == msg.instruction:
 			paused = False
 		elif messages.SET_CURSOR == msg.instruction:
-			#cursor_object = msg.object
+			cursor_object = msg.object
 			window.set_cursor( msg.cursor )
 	except Empty:
 		pass
@@ -190,13 +201,3 @@ while True:
 			frame_remains = TICK_REAL_TIME
 
 	window.update()
-
-		#elif event.type == MOUSEBUTTONUP:
-			#if event.button == 1:
-				## Snap to grid
-				#pos = ( int( event.pos[0] / Constants.SLICE_WIDTH ) * Constants.SLICE_WIDTH, int( event.pos[1] / Constants.FLOOR_HEIGHT ) * Constants.FLOOR_HEIGHT )
-				#f = int( pos[1] / Constants.FLOOR_HEIGHT ) + Globals.v_offset
-				#s = int( pos[0] / Constants.SLICE_WIDTH ) + Globals.h_offset
-				#if "floor" == cursor_object:
-					#if Logic.addFloorSlice( (f,s) ):
-						#force_fu = True # TODO: Smaller update?
