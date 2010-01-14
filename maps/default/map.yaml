@@ -11,42 +11,42 @@ map:
     dirtfloors: 10
   backgrounds:
     dawn_1:
-      dir: 'transition_4'
+      file: 'transition_4.jpg'
       hour: 4
       minute: 0
     dawn_2:
-      dir: 'transition_3'
+      file: 'transition_3.jpg'
       hour: 5
       minute: 0
     dawn_3:
-      dir: 'transition_2'
+      file: 'transition_2.jpg'
       hour: 6
       minute: 0
     dawn_4:
-      dir: 'transition_1'
+      file: 'transition_1.jpg'
       hour: 7
       minute: 0
     day:
-      dir: 'day'
+      file: 'day.jpg'
       hour: 8
       minute: 0
     dusk_1:
-      dir: 'transition_1'
+      file: 'transition_1.jpg'
       hour: 5
       minute: 0
     dusk_2:
-      dir: 'transition_2'
+      file: 'transition_2.jpg'
       hour: 6
       minute: 0
     dusk_3:
-      dir: 'transition_3'
+      file: 'transition_3.jpg'
       hour: 7
       minute: 0
     dusk_4:
-      dir: 'transition_4'
+      file: 'transition_4.jpg'
       hour: 8
       minute: 0
     night:
-      dir: 'night'
+      file: 'night.jpg'
       hour: 9
       minute: 0

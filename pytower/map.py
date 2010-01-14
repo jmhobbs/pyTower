@@ -8,7 +8,7 @@ from constants import *
 
 class MapBackground ():
 	def __init__ ( self, yaml ):
-		self.directory = yaml['dir']
+		self.file = yaml['file']
 		self.hour = yaml['hour']
 		self.minute = yaml['minute']
 
@@ -31,9 +31,11 @@ class Map ():
 		self.script = __import__( self.import_path, None, None, [''] )
 		# TODO: Check what is callable so we can proxy.
 
-	def get_tile_paths ( self, voffset, clock ):
-		tiles = []
-		# TODO: Do something useful with the clock
-		for i in range( 0, WINDOW_FLOORS ):
-			tiles.append( '%s/%s/%d.jpg' % ( self.real_path, self.backgrounds[0].directory, self.floors - ( voffset + i ) ) )
-		return tiles
+	def get_current_background ( self, clock ):
+		cbg = self.backgrounds[-1]
+		for i in self.backgrounds:
+			if i.hour > clock['hour']:
+				break;
+			elif ( i.hour == clock['hour'] and i.minute <= clock['minute'] ) or i.hour < clock['hour']:
+				cbg = self
+		return cbg
