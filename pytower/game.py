@@ -13,7 +13,7 @@ class Game ():
 		"""
 		self.map = None
 		self.cash = None
-		self.set_clock()
+		self.clock = None
 		self.population = None
 		self.peak_population = None
 
@@ -35,6 +35,8 @@ class Game ():
 		self.contents = [None] * map.floors
 		for i in range( map.floors ):
 			self.contents[i] = [None] * ( map.slices )
+		self.set_clock()
+		self.cash = 500000 # TODO: Comes from map?
 
 	def set_clock ( self, year=0, month=0, day=0, hour=0, minute=0 ):
 		self.clock = {'year': year, 'month': month, 'day': day, 'hour': hour, 'minute': minute}

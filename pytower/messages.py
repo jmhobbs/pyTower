@@ -14,8 +14,9 @@ NOTIFY_TIME = 5 # Used to pass game time between processes. Keys: time
 NOTIFY_CASH = 6 # Used to pass game cash between processes Keys: cash
 NOTIFY_POPULATION = 7 # Used to pass game population between processes Keys: population
 MAPS = 8 # Used to send the list of maps over to the ui. Keys: maps
+OBJECTS = 9 # Used to send the list of objects over to the ui. Keys: objects
 
-MESSAGES = ( 'QUIT', 'NEW_GAME', 'PAUSE', 'PLAY', 'SET_CURSOR', 'NOTIFY_TIME', 'NOTIFY_CASH', 'NOTIFY_POPULATION', 'MAPS' )
+MESSAGES = ( 'QUIT', 'NEW_GAME', 'PAUSE', 'PLAY', 'SET_CURSOR', 'NOTIFY_TIME', 'NOTIFY_CASH', 'NOTIFY_POPULATION', 'MAPS', 'OBJECTS' )
 
 class Message ():
 	def __init__ ( self, instruction, attrs=None ):

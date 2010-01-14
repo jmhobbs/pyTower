@@ -65,6 +65,10 @@ class MenuDialog ( QtGui.QWidget ):
 	def closeEvent ( self, event ):
 		event.ignore();
 
+	def close_clean ( self ):
+		self.hide()
+		self.emit( QtCore.SIGNAL( "quit()" ) )
+
 	def send_message ( self, message ):
 		self.sq.put_nowait( message )
 
@@ -96,18 +100,33 @@ class main_menu ( MenuDialog ):
 
 		self.setLayout( vbox )
 
+		self.maps = []
+
 	def do_new_game ( self ):
-		self.send_message( messages.Message( messages.NEW_GAME ) )
-		self.hide()
-		self.emit( QtCore.SIGNAL( "quit()" ) )
+		# TODO: Allow selection of a map
+		self.send_message( messages.Message( messages.NEW_GAME, { 'map': 'Default' } ) )
+		self.close_clean()
 
 	def do_quit ( self ):
 		self.send_message( messages.Message( messages.QUIT ) )
-		self.hide()
-		self.emit( QtCore.SIGNAL( "quit()" ) )
+		self.close_clean()
 
 	def do_about ( self ):
 		about( self )
+
+	def check_messages ( self ):
+		try:
+			while True:
+				x = self.rq.get_nowait()
+				if messages.QUIT == x.instruction:
+					self.close_clean()
+				elif messages.MAPS == x.instruction:
+					self.maps = x.maps
+					print self.maps
+				else:
+					print "UI - RX:", x
+		except:
+			return
 
 class in_game_menu ( MenuDialog ):
 	def __init__ ( self, rq, sq, parent=None ):
@@ -155,7 +174,7 @@ class in_game_menu ( MenuDialog ):
 			while True:
 				x = self.rq.get_nowait()
 				if messages.NOTIFY_TIME == x.instruction:
-					self.time_label.setText( "%02d:%02d - Day %d, Month %d, Year %d" % ( x.time[3], x.time[4], x.time[2], x.time[1], x.time[0] ) )
+					self.time_label.setText( "%02d:%02d - Day %d, Month %d, Year %d" % ( x.time['hour'], x.time['minute'], x.time['day'], x.time['month'], x.time['year'] ) )
 				elif messages.NOTIFY_CASH == x.instruction:
 					self.cash_label.setText( locale.currency( x.cash, grouping=True ) )
 				elif messages.NOTIFY_POPULATION == x.instruction:

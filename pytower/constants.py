@@ -9,7 +9,7 @@ WINDOW_FLOORS = 20
 WINDOW_SLICES = 80
 
 # This is the constant sleep between inter process queue checks. Mostly used in GUI
-IPQUEUE_SLEEP = 100
+IPQUEUE_SLEEP = 50
 
 # Floor ain't free (unless you change it here, cheater)
 FLOOR_SLICE_COST = 500

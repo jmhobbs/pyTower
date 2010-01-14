@@ -106,7 +106,7 @@ class Window ():
 		# 3 - Blit in the new cursor.
 		self.window.blit( self.cursor, pos )
 		# 4 - Dirty that rectangle.
-		self.windowDirtyRectangles.append( ( pos[0], pos[1], Globals.s_cursor.get_rect().width, Globals.s_cursor.get_rect().height ) )
+		self.windowDirtyRectangles.append( ( pos[0], pos[1], self.cursor.get_rect().width, self.cursor.get_rect().height ) )
 		# 5 - Save that cursor.
 		self.cursorRect = ( pos[0], pos[1], self.cursor.get_rect().width, self.cursor.get_rect().height )
 

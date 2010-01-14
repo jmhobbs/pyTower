@@ -18,22 +18,16 @@ from pytower.game import Game
 from pytower.object import Object
 from pytower.map import Map
 
-#def quit():
-	#if None != ui:
-		#ui.join()
-	#pygame.quit()
-	#exit()
+def quit():
+	if None != menus:
+		menus.join()
+	pygame.quit()
+	exit()
 
-#def notify_ui():
-	#m = messages.Message( messages.NOTIFY_TIME )
-	#m.time = Globals.game_clock
-	#Globals.q_tx.put_nowait( m )
-	#m = messages.Message( messages.NOTIFY_CASH )
-	#m.cash = Globals.cash
-	#Globals.q_tx.put_nowait( m )
-	#m = messages.Message( messages.NOTIFY_POPULATION )
-	#m.population = Globals.population
-	#Globals.q_tx.put_nowait( m )
+def notify_ui():
+	tx.put_nowait( messages.Message( messages.NOTIFY_TIME, { 'time': game.clock } ) )
+	tx.put_nowait( messages.Message( messages.NOTIFY_CASH, { 'cash': game.cash } ) )
+	tx.put_nowait( messages.Message( messages.NOTIFY_POPULATION, { 'population': game.population } ) )
 
 pygame.init()
 
@@ -43,6 +37,7 @@ window.init_loading()
 window.set_loading( 'Loading Maps' )
 
 maps = []
+maps_min = []
 
 for root, dirs, files in walk( 'maps/' ):
 	for file in files:
@@ -52,7 +47,9 @@ for root, dirs, files in walk( 'maps/' ):
 			map_yaml = yaml.load( f )
 			f.close()
 			# TODO: Version checking
-			maps.append( Map( map_yaml, import_path ) )
+			map = Map( map_yaml, import_path )
+			maps.append( map )
+			maps_min.append( map.name )
 
 window.set_loading( 'Spawning Menu' )
 
@@ -60,7 +57,12 @@ tx = Queue()
 rx = Queue()
 
 menus = Menus( 'qt', tx, rx )
+
+tx.put_nowait( messages.Message( messages.MAPS, {'maps': maps_min } ) )
 menus.main_menu()
+
+game = Game()
+map = None
 
 window.set_loading( 'Ready!' )
 
@@ -70,72 +72,87 @@ while True:
 	for event in pygame.event.get():
 		if event.type == pygame.VIDEOEXPOSE:
 			window.update()
+		elif event.type == pygame.QUIT:
+			tx.put_nowait( messages.Message( messages.QUIT ) )
+			pygame.quit()
+			exit()
 
+	try:
+		msg = rx.get_nowait()
+		print "SDL RX:", msg
+		if messages.QUIT == msg.instruction:
+			quit()
+		elif messages.NEW_GAME == msg.instruction:
+			for i in maps:
+				if i.name == msg.map:
+					game.new_from_map( i )
+					map = i
+					break
+			del maps
+			del maps_min
+			break
+	except Empty:
+		pygame.time.delay( IPQUEUE_SLEEP )
+
+window.set_loading( 'Loading Objects' )
+
+objects = []
+for root, dirs, files in walk( 'objects/' ):
+	for file in files:
+		if file == 'object.yaml':
+			import_path = root.replace( '/', '.' ) + '.map'
+			f = open( root + '/' + file )
+			object_yaml = yaml.load( f )
+			f.close()
+			# TODO: Version checking
+			objects.append( Object( object_yaml, import_path ) )
+
+window.set_loading( 'Loading UI' )
+
+tx.put_nowait( messages.Message( messages.OBJECTS, {'objects': objects } ) )
+
+menus.in_game_menu()
+
+frame_remains = TICK_REAL_TIME
+paused = False
+cursor_object = None
+while True:
+
+	frame_start = time()
+
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			tx.put_nowait( messages.Message( messages.QUIT ) )
+			quit()
+
+		elif event.type == pygame.MOUSEMOTION:
+			window.move_cursor( event.pos )
+
+	# Check with the UI message queue
 	try:
 		msg = rx.get_nowait()
 		print msg
 		if messages.QUIT == msg.instruction:
-			pygame.quit()
-			exit()
-		#elif messages.NEW_GAME == msg.instruction:
-			#Globals.cash = 500000
-			#Globals.game_clock = [ 1, 1, 1, 0, 0 ]
-			#Globals.population = 0
-			#break
+			quit()
+		elif messages.PAUSE == msg.instruction:
+			paused = True
+		elif messages.PLAY == msg.instruction:
+			paused = False
+		elif messages.SET_CURSOR == msg.instruction:
+			#cursor_object = msg.object
+			window.set_cursor( msg.cursor )
 	except Empty:
-		pygame.time.delay( IPQUEUE_SLEEP )
+		pass
 
-#window.set_loading( 'Loading Objects' )
+	if not paused:
+		frame_end = time()
+		frame_remains = frame_remains - ( frame_end - frame_start )
+		if 0 >= frame_remains:
+			game.clock_tick()
+			notify_ui()
+			frame_remains = TICK_REAL_TIME
 
-#objects = []
-#for root, dirs, files in walk( 'objects/' ):
-	#for file in files:
-		#if file == 'object.yaml':
-			#import_path = root.replace( '/', '.' ) + '.map'
-			#f = open( root + '/' + file )
-			#object_yaml = yaml.load( f )
-			#f.close()
-			## TODO: Version checking
-			#objects.append( Object( object_yaml, import_path ) )
-
-#Globals.q_tx.put_nowait( messages.Message( messages.MAPS, { 'maps': Globals.maps } ) )
-
-#ui = Process( target=GUI.show_main_menu, args=( Globals.q_tx, Globals.q_rx ) )
-#ui.start()
-
-#Render.set_loading( 'Ready!' )
-
-
-#Render.initialize_surfaces()
-
-#notify_ui()
-
-#ui = Process( target=GUI.show_in_game_menu, args=( Globals.q_tx, Globals.q_rx ) )
-#ui.start()
-
-#Render.stop_loading()
-
-#frame_remains = Constants.FRAME_LENGTH
-#paused = False
-#cursor_object = None
-#while True:
-
-	#frame_start = time()
-
-	#v_offset = Globals.v_offset
-	#h_offset = Globals.h_offset
-	#force_fu = False
-
-	#for event in pygame.event.get():
-		#if event.type == QUIT:
-			#Globals.q_tx.put_nowait( messages.Message( messages.QUIT ) )
-			#quit()
-
-		#elif event.type == VIDEOEXPOSE:
-			#force_fu = True
-
-		#elif event.type == MOUSEMOTION:
-			#Render.MoveCursor( event.pos )
+	window.update()
 
 		#elif event.type == MOUSEBUTTONUP:
 			#if event.button == 1:
@@ -163,21 +180,7 @@ while True:
 				#h_offset = 0
 				#v_offset = 0 # TODO: Better numbers
 
-	## Check with the UI message queue
-	#try:
-		#msg = Globals.q_rx.get_nowait()
-		#print msg
-		#if messages.QUIT == msg.instruction:
-			#quit()
-		#elif messages.PAUSE == msg.instruction:
-			#paused = True
-		#elif messages.PLAY == msg.instruction:
-			#paused = False
-		#elif messages.SET_CURSOR == msg.instruction:
-			#cursor_object = msg.object
-			#Render.SetCursor( msg.cursor )
-	#except Empty:
-		#pass
+
 
 	## Over-adjust corrections...
 	#if h_offset + Constants.WINDOW_SLICES > Constants.SLICES:
@@ -198,11 +201,3 @@ while True:
 	#else:
 		#Render.dirty_update()
 
-	## Run the clock!
-	#if not paused:
-		#frame_end = time()
-		#frame_remains = frame_remains - ( frame_end - frame_start )
-		#if 0 >= frame_remains:
-			#increment_game_clock()
-			#notify_ui()
-			#frame_remains = Constants.FRAME_LENGTH
