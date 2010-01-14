@@ -76,7 +76,7 @@ class MenuDialog ( QtGui.QWidget ):
 		try:
 			while True:
 				x = self.rq.get_nowait()
-				print "UI - RX:", x
+				print "QT RX:", x
 		except:
 			return
 
@@ -122,7 +122,6 @@ class main_menu ( MenuDialog ):
 					self.close_clean()
 				elif messages.MAPS == x.instruction:
 					self.maps = x.maps
-					print self.maps
 				else:
 					print "UI - RX:", x
 		except:
@@ -184,7 +183,7 @@ class in_game_menu ( MenuDialog ):
 					self.emit( QtCore.SIGNAL( "quit()" ) )
 					return
 				else:
-					print "UI - RX:", x
+					print "QT RX:", x
 		except Empty:
 			return
 

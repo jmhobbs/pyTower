@@ -4,6 +4,8 @@ if __name__ == "__main__":
 	print "Sorry, you can't run this stand-alone."
 	exit()
 
+from constants import *
+
 class MapBackground ():
 	def __init__ ( self, yaml ):
 		self.directory = yaml['dir']
@@ -11,8 +13,9 @@ class MapBackground ():
 		self.minute = yaml['minute']
 
 class Map ():
-	def __init__( self, yaml, import_path ):
+	def __init__( self, yaml, import_path, real_path ):
 		self.import_path = import_path
+		self.real_path = real_path
 		self.name = yaml['map']['name']
 		self.version = yaml['map']['version']
 		self.author_name = yaml['map']['author']['name']
@@ -28,7 +31,9 @@ class Map ():
 		self.script = __import__( self.import_path, None, None, [''] )
 		# TODO: Check what is callable so we can proxy.
 
-	#def get_tile_path ( self, clock ):
-		#rval = self.backgrounds[0]
-		#cdiff = 0
-		#for background in self.backgrounds:
+	def get_tile_paths ( self, voffset, clock ):
+		tiles = []
+		# TODO: Do something useful with the clock
+		for i in range( 0, WINDOW_FLOORS ):
+			tiles.append( '%s/%s/%d.jpg' % ( self.real_path, self.backgrounds[0].directory, self.floors - ( voffset + i ) ) )
+		return tiles

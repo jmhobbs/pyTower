@@ -37,6 +37,7 @@ class Game ():
 			self.contents[i] = [None] * ( map.slices )
 		self.set_clock()
 		self.cash = 500000 # TODO: Comes from map?
+		self.map.load_for_use()
 
 	def set_clock ( self, year=0, month=0, day=0, hour=0, minute=0 ):
 		self.clock = {'year': year, 'month': month, 'day': day, 'hour': hour, 'minute': minute}

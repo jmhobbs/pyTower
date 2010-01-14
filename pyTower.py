@@ -17,6 +17,7 @@ from pytower.window import Window
 from pytower.game import Game
 from pytower.object import Object
 from pytower.map import Map
+from pytower.utility import FullPath
 
 def quit():
 	if None != menus:
@@ -47,7 +48,7 @@ for root, dirs, files in walk( 'maps/' ):
 			map_yaml = yaml.load( f )
 			f.close()
 			# TODO: Version checking
-			map = Map( map_yaml, import_path )
+			map = Map( map_yaml, import_path, FullPath( root ) )
 			maps.append( map )
 			maps_min.append( map.name )
 
@@ -62,7 +63,6 @@ tx.put_nowait( messages.Message( messages.MAPS, {'maps': maps_min } ) )
 menus.main_menu()
 
 game = Game()
-map = None
 
 window.set_loading( 'Ready!' )
 
@@ -86,7 +86,6 @@ while True:
 			for i in maps:
 				if i.name == msg.map:
 					game.new_from_map( i )
-					map = i
 					break
 			del maps
 			del maps_min
@@ -100,7 +99,7 @@ objects = []
 for root, dirs, files in walk( 'objects/' ):
 	for file in files:
 		if file == 'object.yaml':
-			import_path = root.replace( '/', '.' ) + '.map'
+			import_path = root.replace( '/', '.' ) + '.object'
 			f = open( root + '/' + file )
 			object_yaml = yaml.load( f )
 			f.close()
@@ -112,6 +111,8 @@ window.set_loading( 'Loading UI' )
 tx.put_nowait( messages.Message( messages.OBJECTS, {'objects': objects } ) )
 
 menus.in_game_menu()
+
+window.load_tile_set( game.map.get_tile_paths( window.floor_offset, game.clock ) )
 
 frame_remains = TICK_REAL_TIME
 paused = False
