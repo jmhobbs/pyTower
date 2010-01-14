@@ -112,6 +112,8 @@ tx.put_nowait( messages.Message( messages.OBJECTS, {'objects': objects } ) )
 
 menus.in_game_menu()
 
+window.floor_offset = game.map.floors - WINDOW_FLOORS - int( game.map.dirt_floors / 2 )
+window.slice_offset = 0 #TODO: Fix this to a good value: int( game.map.slices / 2 ) ?
 window.load_tile_set( game.map.get_tile_paths( window.floor_offset, game.clock ) )
 
 frame_remains = TICK_REAL_TIME
@@ -121,6 +123,9 @@ while True:
 
 	frame_start = time()
 
+	floor_offset = window.floor_offset
+	slice_offset = window.slice_offset
+
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			tx.put_nowait( messages.Message( messages.QUIT ) )
@@ -128,6 +133,16 @@ while True:
 
 		elif event.type == pygame.MOUSEMOTION:
 			window.move_cursor( event.pos )
+
+		elif event.type == pygame.KEYUP:
+			if event.key == pygame.K_DOWN:
+				floor_offset = floor_offset + 1
+			elif event.key == pygame.K_UP:
+				floor_offset = floor_offset - 1
+			elif event.key == pygame.K_LEFT:
+				slice_offset = slice_offset - 1
+			elif event.key == pygame.K_RIGHT:
+				slice_offset = slice_offset + 1
 
 	# Check with the UI message queue
 	try:
@@ -144,6 +159,27 @@ while True:
 			window.set_cursor( msg.cursor )
 	except Empty:
 		pass
+
+
+	# Over-adjust corrections...
+	if slice_offset + WINDOW_SLICES > game.map.slices:
+		slice_offset = game.map.slices - WINDOW_SLICES
+	elif slice_offset < 0:
+		slice_offset = 0
+
+	if floor_offset + WINDOW_FLOORS > game.map.floors:
+		floor_offset = game.map.floors - WINDOW_FLOORS
+	elif floor_offset < 0:
+		floor_offset = 0
+
+	# Now choose the right rendering function
+	if floor_offset != window.floor_offset:
+		window.floor_offset = floor_offset
+		window.slice_offset = slice_offset
+		window.load_tile_set( game.map.get_tile_paths( window.floor_offset, game.clock ) )
+	elif slice_offset != window.slice_offset:
+		window.slice_offset = slice_offset
+		window.refresh_background()
 
 	if not paused:
 		frame_end = time()
@@ -164,41 +200,3 @@ while True:
 				#if "floor" == cursor_object:
 					#if Logic.addFloorSlice( (f,s) ):
 						#force_fu = True # TODO: Smaller update?
-
-		#elif event.type == KEYUP:
-			#if event.key == pygame.K_q:
-				#Globals.q_tx.put_nowait( messages.Message( messages.QUIT ) )
-				#quit()
-			#elif event.key == pygame.K_DOWN:
-					#v_offset = v_offset + 1
-			#elif event.key == pygame.K_UP:
-				#v_offset = v_offset - 1
-			#elif event.key == pygame.K_LEFT:
-				#h_offset = h_offset - 1
-			#elif event.key == pygame.K_RIGHT:
-				#h_offset = h_offset + 1
-			#elif event.key == pygame.K_HOME:
-				#h_offset = 0
-				#v_offset = 0 # TODO: Better numbers
-
-
-
-	## Over-adjust corrections...
-	#if h_offset + Constants.WINDOW_SLICES > Constants.SLICES:
-		#h_offset = Constants.SLICES - Constants.WINDOW_SLICES
-	#elif h_offset < 0:
-		#h_offset = 0
-
-	#if v_offset + Constants.WINDOW_FLOORS > Constants.FLOORS:
-		#v_offset = Constants.FLOORS - Constants.WINDOW_FLOORS
-	#elif v_offset < 0:
-		#v_offset = 0
-
-	## Only bother to render if it is really a move
-	#if force_fu or v_offset != Globals.v_offset or h_offset != Globals.h_offset:
-		#Globals.v_offset = v_offset
-		#Globals.h_offset = h_offset
-		#Render.move()
-	#else:
-		#Render.dirty_update()
-

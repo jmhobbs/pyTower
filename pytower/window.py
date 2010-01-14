@@ -119,9 +119,20 @@ class Window ():
 		self.cursorRect = ( pos[0], pos[1], self.cursor.get_rect().width, self.cursor.get_rect().height )
 
 	def load_tile_set ( self, tile_paths ):
+		"""
+		This function is used when drawing new tiles, i.e. clock change or vertical scroll
+		"""
 		for i in range( 0, WINDOW_FLOORS ):
 			self.tiles[i] = pygame.image.load( tile_paths[i] ).convert()
-			self.background.blit( self.tiles[i], ( self.slice_offset * SLICE_WIDTH, FLOOR_HEIGHT * i ) )
+		self.refresh_background()
+		# TODO: Re-blit the flooring and the context
+
+	def refresh_background ( self ):
+		"""
+		This function is used to redraw on horizonal scroll
+		"""
+		for i in range( 0, WINDOW_FLOORS ):
+			self.background.blit( self.tiles[i], ( 0, FLOOR_HEIGHT * i ), ( self.slice_offset * SLICE_WIDTH, 0, WINDOW_WIDTH, FLOOR_HEIGHT ) )
 		self.window.blit( self.background, ( 0, 0 ) )
 		self.dirty( ( 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT ) )
 		# TODO: Re-blit the flooring and the context
